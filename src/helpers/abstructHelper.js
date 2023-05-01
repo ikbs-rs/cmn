@@ -26,9 +26,9 @@ const add = async (objName, objData) => {
   }
 };
 
-const getAll = async (sqlQuery) => {
+const getAll = async (objName) => {
   try {
-    const result = await abstractModel.find(sqlQuery);
+    const result = await abstractModel.find(objName);
     return result;
   } catch (err) {
     console.log(err);

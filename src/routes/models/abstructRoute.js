@@ -7,11 +7,9 @@ const router = express.Router();
 router.use("/", (req, res, next) => {
   const urlParts = req.url.split("/");
   req.objName2 = urlParts[1];
-
-  if (req.objName == req.objName2) {
-    router.use("/", (req, res, next) => {
+  if (req.objName2=="services") {
+    router.use(`/${req.objName2}`, (req, res, next) => {
       return res.status(403).send({ error: "Forbidden!!" });
-      next();
     });
   } else {
     router.get("/", abstructController.getAll);

@@ -6,7 +6,6 @@ import roll from "./guards/roll.js";
 // funkcija za proveru ispravnosti JWT tokena za postojeci modul CMD.
 export const checkJwt = async (req, res, next) => {
   try {
-    console.log("CMN inteceptor 9")
     const jwtServer = process.env.JWT_URL;
     const token = req.headers.authorization?.replace("Bearer ", "");
 
@@ -16,6 +15,7 @@ export const checkJwt = async (req, res, next) => {
       );
     } else {
       if (jwtServer === "LOCAL") {
+        console.log("CMN inteceptors 18!!");
         jwt.verify(token, jwtConfig.secret, (err, decoded) => {
           if (err) return res.status(401).json({ error: "Token invalid" });
           req.userId = decoded.userId;
@@ -23,14 +23,15 @@ export const checkJwt = async (req, res, next) => {
         });
       } else {
         const checkJwtUrl = `${jwtServer}/checkJwt`;
-        console.log("CMN inteceptors 26", checkJwtUrl);
-        const response = await axios.post(`${checkJwtUrl}`, {
+        const response = await axios.post(`${checkJwtUrl}`, {}, {
           headers: { Authorization: `Bearer ${token}` },
           timeout: 5000, // vreme za koje se očekuje odgovor od udaljenog servera (u milisekundama)
         });
         // provera statusa odgovora
         if (response.status === 200 && response.data.success) {
           // ako je JWT token ispravan, prelazimo na sledeći middleware
+          req.userId = response.data.userId
+          req.decodeJwt = response.data.decodeJwt
           next();
         } else {
           // ako nije ispravan, vraćamo poruku o grešci
@@ -53,7 +54,6 @@ export const checkJwt = async (req, res, next) => {
 export const checkPermissions = (par1 = "1", par2 = "1") => {
   return async (req, res, next) => {
     try {
-      console.log("CMN interpreter 61")
       // Dohvatam objekat i korisnika i prosledjujem dalje
       const objName = req.objName;
       const userId = req.userId;
@@ -70,11 +70,10 @@ export const checkPermissions = (par1 = "1", par2 = "1") => {
       } else {
         // Prosleđujem zahtev udaljenom serveru
         const token = req.headers.authorization?.replace("Bearer ", "");
-        const checkPermissionsUrl = `${jwtServer}/checkPermissionsEx`;
-        console.log("interceotors 77", checkPermissionsUrl)
+        const checkPermissionsUrl = `${jwtServer}/checkPermissions`;
         const response = await axios.post(checkPermissionsUrl, 
           {
-            userId: userId,
+            userId: req.userId,
             objName: objName,
             par1: par1,
             par2: par2
@@ -85,7 +84,6 @@ export const checkPermissions = (par1 = "1", par2 = "1") => {
             }
           }
         );        
-
         if (response.status === 200 && response.data.allowed) {
           next();
         } else {

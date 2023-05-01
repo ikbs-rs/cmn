@@ -1,5 +1,4 @@
 import express from 'express'
-
 import abstruct from './models/abstructRoute.js'
 //import servicesRoute from './services/servicesRoute.js'
 import { checkJwt, checkPermissions, checkPermissionsEx } from '../security/interceptors.js'
@@ -13,7 +12,7 @@ router.use('/', (req, res, next) => {
   const urlParts = req.url.split("/");
 // Dohvatam iz URL-a, koju tabelu obradjujen i setuje --- req.objName ****** TABELU
 // Ovde je to .../adm/menu/... adm je modul a menu je tabela
-  if (!(urlParts[2]==="services")) {
+  if (!(urlParts[2]==="services")) {  
     req.objName = urlParts[1]+"_"+urlParts[2];
   }
   next();
