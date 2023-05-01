@@ -1,12 +1,10 @@
 import express from 'express'
 
 import abstruct from './models/abstructRoute.js'
-import user from './models/userRoute.js'
-import servicesRoute from './services/servicesRoute.js'
+//import servicesRoute from './services/servicesRoute.js'
 import { checkJwt, checkPermissions, checkPermissionsEx } from '../security/interceptors.js'
 
 const router = express.Router();
-const midd = 'midd';
 
 //router.use(checkJwt); // provera JWT tokena na svakom zahtevu
 router.use(express.json())
