@@ -18,7 +18,7 @@ const verifyToken = async (req, res, next) => {
   }
   jwt.verify(token, jwtConfig.secret, (err, decoded) => {
     if (err) return res.status(401).send({ error: "Token invalid" });
-    req.userId = decoded.id;
+    req.userId = decoded.userId;
     res.status(200).json({ message: "Data processed successfully", decoded });
     next();
   });
@@ -39,7 +39,7 @@ const verifyJWT = async (req, res, next) => {
 
   jwt.verify(token, jwtConfig.secret, (err, decoded) => {
     if (err) return res.status(401).send({ error: "Token invalid" });
-    req.userId = decoded.id;
+    req.userId = decoded.userId;
     res.status(200).json({ message: "Data processed successfully", decoded });
     next();
   });

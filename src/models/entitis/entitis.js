@@ -437,7 +437,237 @@ const entitiesInfo =
 			"begda": "string",
 			"datumod2": "string"
 		}
-	}
+	},
+	"cmn_currx": {
+		"attributes": {
+		  "id": "number",
+		  "site": "number",
+		  "tableid": "number",
+		  "lang": "string",
+		  "grammcase": "number",
+		  "text": "string"
+		}
+	  },
+	  "cmn_linkx": {
+		"attributes": {
+		  "id": "number",
+		  "site": "number",
+		  "tableid": "number",
+		  "lang": "string",
+		  "grammcase": "number",
+		  "text": "string"
+		}
+	  },
+	  "cmn_locattx": {
+		"attributes": {
+		  "id": "number",
+		  "site": "number",
+		  "tableid": "number",
+		  "lang": "string",
+		  "grammcase": "number",
+		  "text": "string"
+		}
+	  },
+	  "cmn_loclinktpx": {
+		"attributes": {
+		  "id": "number",
+		  "site": "number",
+		  "tableid": "number",
+		  "lang": "string",
+		  "grammcase": "number",
+		  "text": "string"
+		}
+	  },
+	  "cmn_loctpx": {
+		"attributes": {
+		  "id": "number",
+		  "site": "number",
+		  "tableid": "number",
+		  "lang": "string",
+		  "grammcase": "number",
+		  "text": "string"
+		}
+	  },
+	  "cmn_locx": {
+		"attributes": {
+		  "id": "number",
+		  "site": "number",
+		  "tableid": "number",
+		  "lang": "string",
+		  "grammcase": "number",
+		  "text": "string"
+		}
+	  },
+	  "cmn_menux": {
+		"attributes": {
+		  "id": "number",
+		  "site": "number",
+		  "tableid": "number",
+		  "lang": "string",
+		  "grammcase": "number",
+		  "text": "string"
+		}
+	  },
+	  "cmn_modulex": {
+		"attributes": {
+		  "id": "number",
+		  "site": "number",
+		  "tableid": "number",
+		  "lang": "string",
+		  "grammcase": "number",
+		  "text": "string"
+		}
+	  },
+	  "cmn_objatttpx": {
+		"attributes": {
+		  "id": "number",
+		  "site": "number",
+		  "tableid": "number",
+		  "lang": "string",
+		  "grammcase": "number",
+		  "text": "string"
+		}
+	  },
+	  "cmn_objattx": {
+		"attributes": {
+		  "id": "number",
+		  "site": "number",
+		  "tableid": "number",
+		  "lang": "string",
+		  "grammcase": "number",
+		  "text": "string"
+		}
+	  },
+	  "cmn_objtpx": {
+		"attributes": {
+		  "id": "number",
+		  "site": "number",
+		  "tableid": "number",
+		  "lang": "string",
+		  "grammcase": "number",
+		  "text": "string"
+		}
+	  },
+	  "cmn_objx": {
+		"attributes": {
+		  "id": "number",
+		  "site": "number",
+		  "tableid": "number",
+		  "lang": "string",
+		  "grammcase": "number",
+		  "text": "string"
+		}
+	  },
+	  "cmn_parattx": {
+		"attributes": {
+		  "id": "number",
+		  "site": "number",
+		  "tableid": "number",
+		  "lang": "string",
+		  "grammcase": "number",
+		  "text": "string"
+		}
+	  },
+	  "cmn_parcontacttpx": {
+		"attributes": {
+		  "id": "number",
+		  "site": "number",
+		  "tableid": "number",
+		  "lang": "string",
+		  "grammcase": "number",
+		  "text": "string"
+		}
+	  },
+	  "cmn_partpx": {
+		"attributes": {
+		  "id": "number",
+		  "site": "number",
+		  "tableid": "number",
+		  "lang": "string",
+		  "grammcase": "number",
+		  "text": "string"
+		}
+	  },
+	  "cmn_parx": {
+		"attributes": {
+		  "id": "number",
+		  "site": "number",
+		  "tableid": "number",
+		  "lang": "string",
+		  "grammcase": "number",
+		  "text": "string"
+		}
+	  },
+	  "cmn_taxx": {
+		"attributes": {
+		  "id": "number",
+		  "site": "number",
+		  "tableid": "number",
+		  "lang": "string",
+		  "grammcase": "number",
+		  "text": "string"
+		}
+	  },
+	  "cmn_terrattx": {
+		"attributes": {
+		  "id": "number",
+		  "site": "number",
+		  "tableid": "number",
+		  "lang": "string",
+		  "grammcase": "number",
+		  "text": "string"
+		}
+	  },
+	  "cmn_terrlinktpx": {
+		"attributes": {
+		  "id": "number",
+		  "site": "number",
+		  "tableid": "number",
+		  "lang": "string",
+		  "grammcase": "number",
+		  "text": "string"
+		}
+	  },
+	  "cmn_terrtpx": {
+		"attributes": {
+		  "id": "number",
+		  "site": "number",
+		  "tableid": "number",
+		  "lang": "string",
+		  "grammcase": "number",
+		  "text": "string"
+		}
+	  },
+	  "cmn_terrx": {
+		"attributes": {
+		  "id": "number",
+		  "site": "number",
+		  "tableid": "number",
+		  "lang": "string",
+		  "grammcase": "number",
+		  "text": "string"
+		}
+	  },
+	  "cmn_tgpx": {
+		"attributes": {
+		  "id": "number",
+		  "site": "number",
+		  "tableid": "number",
+		  "lang": "string",
+		  "grammcase": "number",
+		  "text": "string"
+		}
+	  },
+	  "cmn_umx": {
+		"attributes": {
+		  "id": "number",
+		  "site": "number",
+		  "tableid": "number",
+		  "lang": "string",
+		  "grammcase": "number",
+		  "text": "string"
+		}
+	  }	
 }
 export default {
   entitiesInfo,
