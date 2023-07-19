@@ -44,7 +44,6 @@ const find = async (objName, lang) => {
                         ON a.id = b.tableid  
                         and b.lang = '${lang||'en'}'`
   //const [rows] = await db.query(sqlRecenic);
-  console.log(sqlRecenica, '*-*-*-*-*-*-*-*-*-*-*-*-*-*---*-*')
   const result = await db.query(sqlRecenica);
   const rows = result.rows;
   if (Array.isArray(rows)) {
@@ -157,15 +156,15 @@ const findAllbyItem = async (objName, lang, item, itemValue) => {
   const _objName1 = objName.replace(/_v.*/, "");
   const attributeType = entities.entitiesInfo[_objName1].attributes[item];
   const value = attributeType === "string" ? `'${itemValue}'` : itemValue;
-  let sqlString = `SELECT * FROM ${objName} WHERE ${item} = ${value}`;
-  if (item === "text") {
-    sqlString = `SELECT a.*, b.text textx, b.lang  
-                FROM ${objName} a  
-                JOIN ${objName}x b 
-                ON a.id = b.tableid  
-                and b.lang = '${lang||'en'}' 
-                and b.text = ${value}`;
-  }
+  let sqlString = `SELECT o.*, coalesce(b.text, o.text) textx, b.lang
+                    FROM ${objName} o
+                    left JOIN (
+                        SELECT *
+                        FROM  ${objName}x ar
+                        where lang = '${lang||'en'}'
+                        ) b
+                    ON o.id = b.tableid 
+                    where o.${item} = ${value}`;                    
   const result = await db.query(sqlString);
   const rows = result.rows;
   if (Array.isArray(rows)) {

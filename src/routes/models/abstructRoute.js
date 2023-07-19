@@ -1,5 +1,6 @@
 import express from "express";
 import abstructController from "../../controllers/abstructController.js";
+import vRoute from './vRoute.js'
 import { checkPermissions } from '../../security/interceptors.js'
 
 const router = express.Router();
@@ -12,17 +13,21 @@ router.use("/", (req, res, next) => {
       return res.status(403).send({ error: "Forbidden!!" });
     });
   } else {
-    router.get("/", abstructController.getAll);
-    router.get("/:id", abstructController.getById);
-    router.post("/", checkPermissions("C"), abstructController.add);
-    router.put("/", checkPermissions("U"), abstructController.update);
-    router.delete("/:id", checkPermissions("D"), abstructController.remove);
+    if (req.path.startsWith("/_v")) {
+      router.use("/_v", vRoute);
+    } else {    
+      router.get("/", abstructController.getAll);
+      router.get("/:id", abstructController.getById);
+      router.post("/", checkPermissions("C"), abstructController.add);
+      router.put("/", checkPermissions("U"), abstructController.update);
+      router.delete("/:id", checkPermissions("D"), abstructController.remove);
 
-    req.objItem = urlParts[2];
-    router.get(`/get/${req.objItem}/:id`, abstructController.getItem);
-    router.get(`/getid/${req.objItem}/:value`, abstructController.getIdByItem);
-    //Mora se proslediti sledeci json za SETOVANJE *********** {"id": 1627113837566496768, "value": 1} *******    
-    router.put(`/set/${req.objItem}`, checkPermissions("U"), abstructController.setItem);
+      req.objItem = urlParts[2];
+      router.get(`/get/${req.objItem}/:id`, abstructController.getItem);
+      router.get(`/getid/${req.objItem}/:value`, abstructController.getIdByItem);
+      //Mora se proslediti sledeci json za SETOVANJE *********** {"id": 1627113837566496768, "value": 1} *******    
+      router.put(`/set/${req.objItem}`, checkPermissions("U"), abstructController.setItem);
+    }
   }
   next();
 });

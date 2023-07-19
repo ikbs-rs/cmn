@@ -9,6 +9,13 @@ const router = express.Router();
 //router.use(checkJwt); // provera JWT tokena na svakom zahtevu
 router.use(express.json())
 
+/*
+router.use((req, res, next) => { 
+  console.log("******************", req.url)
+  next();
+});
+*/
+
 router.use("/", (req, res, next) => {
   const urlParts = req.url.split("/");
   // Dohvatam iz URL-a, koju tabelu obradjujen i setuje --- req.objName ****** TABELU
@@ -44,7 +51,7 @@ router.use('/cmn/menu', checkPermissions(), abstruct)
 router.use('/cmn/module', checkPermissions(), abstruct)
 
 router.use('/cmn/objatt', checkPermissions(), abstruct)
-router.use('/cmn/objatts', checkPermissions(), abstruct)
+router.use('/cmn/objatts',  abstruct)
 
 router.use('/cmn/objatttp', checkPermissions(), abstruct)
 router.use('/cmn/objlink', checkPermissions(), abstruct)
@@ -72,8 +79,12 @@ router.use('/cmn/tgptax', checkPermissions(), abstruct)
 router.use('/cmn/um', checkPermissions(), abstruct)
 router.use('/cmn/umparity', checkPermissions(), abstruct)
 
+router.use('/cmn/x/link', checkPermissions(), abstructX)
+router.use('/cmn/x/loctp', checkPermissions(), abstructX)
 router.use('/cmn/x/obj', checkPermissions(), abstructX)
 router.use('/cmn/x/objtp', checkPermissions(), abstructX)
+router.use('/cmn/x/objatt', checkPermissions(), abstructX)
+router.use('/cmn/x/objatttp', checkPermissions(), abstructX)
 
 //router.use('/adm/services', servicesRoute)
 

@@ -41,7 +41,6 @@ const add = async (objName, objData, lang) => {
 
 const getAll = async (objName, lang) => {
   try { 
-    console.log(objName, lang, '*-*-*-*-*-*-*-*-*-*-*-*-*-*-'); 
     const result = await abstractModel.find(objName, lang);
     return result;
   } catch (err) {
@@ -72,6 +71,7 @@ const getByStext = async (objName, lang, value) => {
 
 const update = async (objName, objData, lang) => {
   try {
+
     const sqlQuery = await abstructQuery.getUpdateQueryX(objName, objData);
     const result = await abstractModel.update(sqlQuery, objName,  objData, lang);
     return result;
