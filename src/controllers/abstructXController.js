@@ -15,7 +15,7 @@ const getById = async (req, res) => {
     const item = await abstructHelper.getById( req.objName, req.query.sl||'en', req.params.id);
     res.status(200).json({ item }); 
   } catch (err) {
-    res.status(500).json({ message: `Doslo je do greske getById abstructController ${req.objName}`, error: err.message });
+    res.status(500).json({ message: `Doslo je do greske getById abstructXController ${req.objName}`, error: err.message });
   }
 };
 

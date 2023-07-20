@@ -281,10 +281,12 @@ const entitiesInfo =
 		"cmn_link": "number",
 		"direction": "string",
 		"code": "string",
-		"text": "number",
+		"text": "string",
 		"um": "number",
 		"begda": "string",
-		"endda": "string"
+		"endda": "string",
+		"hijerarhija": "number",
+		"onoff": "number",
 	  }
 	},
 	"cmn_objlink_arr": {

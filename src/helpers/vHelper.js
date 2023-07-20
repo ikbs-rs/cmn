@@ -1,9 +1,9 @@
 import vModel from "../models/vModel.js";
 
-const saltRounds = 10
+const saltRounds = 10;
 
 const getCmnLinkV = async (objName, lang) => {
-  try { 
+  try {
     const result = await vModel.getCmnLinkV(objName, lang);
     return result;
   } catch (err) {
@@ -13,18 +13,21 @@ const getCmnLinkV = async (objName, lang) => {
 };
 
 const getLista = async (objName, stm, lang) => {
-  try { 
-    const result = {}
+  try {
+    let result = {};
     switch (stm) {
-      case "cmn_objlink_v":
-          result = await vModel.getCmnLinkV(objName, lang); 
-          break;
       case "cmn_objatts_v":
-          result = await vModel.getCmnObjattsV(objName, lang);                    
-          break;
+        result = await vModel.getCmnObjattsV(objName, lang);
+        break;
+      case "cmn_obj_v":
+        result = await vModel.getObjV(objName, lang);
+        break;
+        case "cmn_objtree_json_v":
+          result = await vModel.getObjTree(objName, lang);
+          break;        
       default:
-          console.error("Pogresan naziv za view")
-    }     
+        console.error("Pogresan naziv za view");
+    }
     return result;
   } catch (err) {
     console.log(err);
@@ -33,14 +36,17 @@ const getLista = async (objName, stm, lang) => {
 };
 
 const getListaById = async (objName, stm, objId, lang) => {
-  try { 
+  try {
     switch (stm) {
       case "cmn_objatts_v":
-          var result = await vModel.getCmnObjattsV(objName, objId, lang); 
-          break;
+        var result = await vModel.getCmnObjattsV(objName, objId, lang);
+        break;
+      case "cmn_objlink_v":
+        var result = await vModel.getCmnObjlinkV(objName, objId, lang);
+        break;
       default:
-          console.error("Pogresan naziv za view")
-    }     
+        console.error("Pogresan naziv za view");
+    }
     return result;
   } catch (err) {
     console.log(err);

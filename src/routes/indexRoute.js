@@ -85,6 +85,7 @@ router.use('/cmn/x/obj', checkPermissions(), abstructX)
 router.use('/cmn/x/objtp', checkPermissions(), abstructX)
 router.use('/cmn/x/objatt', checkPermissions(), abstructX)
 router.use('/cmn/x/objatttp', checkPermissions(), abstructX)
+router.use('/cmn/x/um', checkPermissions(), abstruct)
 
 //router.use('/adm/services', servicesRoute)
 
