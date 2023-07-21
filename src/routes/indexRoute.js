@@ -19,7 +19,7 @@ router.use((req, res, next) => {
 router.use("/", (req, res, next) => {
   const urlParts = req.url.split("/");
   // Dohvatam iz URL-a, koju tabelu obradjujen i setuje --- req.objName ****** TABELU
-  // Ovde je to .../adm/menu/... adm je modul a menu je tabela
+  // .../adm/menu/... adm je modul a menu je tabela
   if (!(urlParts[2] === "services")||!(urlParts[2] === "x")) {
     req.objName = urlParts[1] + "_" + urlParts[2];
   } 
@@ -85,7 +85,7 @@ router.use('/cmn/x/obj', checkPermissions(), abstructX)
 router.use('/cmn/x/objtp', checkPermissions(), abstructX)
 router.use('/cmn/x/objatt', checkPermissions(), abstructX)
 router.use('/cmn/x/objatttp', checkPermissions(), abstructX)
-router.use('/cmn/x/um', checkPermissions(), abstruct)
+router.use('/cmn/x/um', checkPermissions(), abstructX)
 
 //router.use('/adm/services', servicesRoute)
 
