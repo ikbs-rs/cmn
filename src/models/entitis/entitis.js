@@ -342,7 +342,7 @@ const entitiesInfo =
 		"text": "string",
 		"short": "string",
 		"address": "string",
-		"place": "number",
+		"place": "string",
 		"postcode": "string",
 		"tel": "string",
 		"activity": "string",
@@ -436,9 +436,9 @@ const entitiesInfo =
 		"site": "number",
 		"par1": "number",
 		"par2": "number",
-		"long": "string",
+		"text": "string",
 		"begda": "string",
-		"datumod2": "string"
+		"endda": "string"
 	  }
 	},
 	"cmn_partp": {
@@ -556,7 +556,6 @@ const entitiesInfo =
 	  "attributes": {
 		"id": "number",
 		"site": "number",
-		"link": "number",
 		"terr1": "number",
 		"terr2": "number",
 		"text": "string",

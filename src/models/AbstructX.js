@@ -6,7 +6,7 @@ const saltRounds = 10;
 
 //# add function
 const add = async (sqlQuery1, sqlQuery2) => {
-
+console.log(sqlQuery1, "****************", sqlQuery2, "****************");
   try {
     await db.query("BEGIN");
     const result1 = await db.query(sqlQuery1);

@@ -55,6 +55,103 @@ const getObjV = async (objName, lang) => {
   }
 };
 
+const getParV = async (objName, lang) => {
+  const sqlRecenica =  
+           `select l.id, l.site, l.code, l.text, l.short, l.address, l.place, l.postcode, l.tel, l.activity,
+            l.pib, l.idnum, l.pdvnum, l.begda, l.endda,
+            l.lang, l.grammcase, l.text textx,
+            l.tp, getValueById(l.tp, 'cmn_partpx_v', 'code', '${lang||'en'}') ctp, getValueById(l.tp, 'cmn_partpx_v', 'text', '${lang||'en'}') ntp
+      from	cmn_parx_v l
+      where l.lang = '${lang||'en'}'`      
+  //const [rows] = await db.query(sqlRecenic);
+  let result = await db.query(sqlRecenica);
+  let rows = result.rows;
+  if (Array.isArray(rows)) {
+    return rows;
+  } else {
+    throw new Error(
+      `Greška pri dohvatanju slogova iz baze - abs find: ${rows}`
+    );
+  }
+};
+
+const getTerrV = async (objName, lang) => {
+  const sqlRecenica =  
+           `select l.id, l.site, l.code, l.text, l.postcode, l.begda, l.endda,
+            l.lang, l.grammcase, l.text textx,
+            l.tp, getValueById(l.tp, 'cmn_terrtpx_v', 'code', '${lang||'en'}') ctp, getValueById(l.tp, 'cmn_terrtpx_v', 'text', '${lang||'en'}') ntp
+      from	cmn_terrx_v l
+      where l.lang = '${lang||'en'}'`      
+  //const [rows] = await db.query(sqlRecenic);
+  console.log(sqlRecenica, "****************************/////////")
+  let result = await db.query(sqlRecenica);
+  let rows = result.rows;
+  if (Array.isArray(rows)) {
+    return rows;
+  } else {
+    throw new Error(
+      `Greška pri dohvatanju slogova iz baze - abs find: ${rows}`
+    );
+  }
+};
+
+const getParattsV = async (objName, objId, lang) => {
+  const sqlRecenica =  
+  `select aa.id , aa.site , aa.par , aa.text, aa.begda, aa.endda, 
+        aa.att, getValueById(aa.att, 'cmn_parattx_v', 'code', '${lang||'en'}') ctp, getValueById(aa.att, 'cmn_parattx_v', 'text', '${lang||'en'}') ntp
+  from	cmn_paratts aa
+  where aa.par = ${objId}`      
+  //const [rows] = await db.query(sqlRecenic);
+ console.log(sqlRecenica, "****************************/////////")
+  let result = await db.query(sqlRecenica);
+  let rows = result.rows;
+  if (Array.isArray(rows)) {
+    return rows;
+  } else {
+    throw new Error(
+      `Greška pri dohvatanju slogova iz baze - abs find: ${rows}`
+    );
+  }
+};
+
+const getTerrattsV = async (objName, objId, lang) => {
+  const sqlRecenica =  
+  `select aa.id , aa.site , aa.loc , aa.text, aa.begda, aa.endda, 
+        aa.att, getValueById(aa.att, 'cmn_terrattx_v', 'code', '${lang||'en'}') ctp, getValueById(aa.att, 'cmn_terrattx_v', 'text', '${lang||'en'}') ntp
+  from	cmn_terratts aa
+  where aa.loc = ${objId}`      
+  //const [rows] = await db.query(sqlRecenic);
+ console.log(sqlRecenica, "****************************/////////****************")
+  let result = await db.query(sqlRecenica);
+  let rows = result.rows;
+  if (Array.isArray(rows)) {
+    return rows;
+  } else {
+    throw new Error(
+      `Greška pri dohvatanju slogova iz baze - abs find: ${rows}`
+    );
+  }
+};
+
+const getParlinkV = async (objName, objId, lang) => {
+  const sqlRecenica =  
+  `select aa.id , aa.site , aa.par2 , aa.text, aa.begda, aa.endda, 
+        aa.par1, getValueById(aa.par1, 'cmn_parx_v', 'code', '${lang||'en'}') cpar1, getValueById(aa.par1, 'cmn_parx_v', 'text', '${lang||'en'}') npar1
+  from	cmn_parlink aa
+  where aa.par2 = ${objId}`      
+  //const [rows] = await db.query(sqlRecenic);
+ console.log(sqlRecenica, "****************************/////////")
+  let result = await db.query(sqlRecenica);
+  let rows = result.rows;
+  if (Array.isArray(rows)) {
+    return rows;
+  } else {
+    throw new Error(
+      `Greška pri dohvatanju slogova iz baze - abs find: ${rows}`
+    );
+  }
+};
+
 const getObjTree = async (objName, lang) => {
   const sqlRecenica = 
   ` select tree
@@ -228,6 +325,11 @@ const getCmnObjlinkV = async (objName, objId, lang) => {
 export default {
   getCmnLinkV,
   getObjV,
+  getParV,
+  getParattsV,
+  getParlinkV,
+  getTerrV,
+  getTerrattsV,
   getObjTree,
   getCmnObjattsV,
   getCmnObjlinkV,
