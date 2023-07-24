@@ -38,7 +38,7 @@ router.use((req, res, next) => {
 });
 
 // Moze da se svede na jedan ruter ali volim da vidim sta je sve implementirano!!!
-router.use('/cmn/curr', checkPermissions(), abstruct)
+
 router.use('/cmn/currrate', checkPermissions(), abstruct)
 router.use('/cmn/link', checkPermissions(), abstruct)
 router.use('/cmn/loc', checkPermissions(), abstruct)
@@ -77,7 +77,10 @@ router.use('/cmn/tgptax', checkPermissions(), abstruct)
 router.use('/cmn/um', checkPermissions(), abstruct)
 router.use('/cmn/umparity', checkPermissions(), abstruct)
 
+router.use('/cmn/x/curr', checkPermissions(), abstructX)
 router.use('/cmn/x/link', checkPermissions(), abstructX)
+router.use('/cmn/x/loc', checkPermissions(), abstructX)
+router.use('/cmn/x/locatt', checkPermissions(), abstructX)
 router.use('/cmn/x/loctp', checkPermissions(), abstructX)
 router.use('/cmn/x/obj', checkPermissions(), abstructX)
 router.use('/cmn/x/objtp', checkPermissions(), abstructX)

@@ -537,7 +537,7 @@ const entitiesInfo =
 		"site": "number",
 		"loc": "number",
 		"att": "number",
-		"long": "string",
+		"text": "string",
 		"begda": "string",
 		"endda": "string"
 	  }

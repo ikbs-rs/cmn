@@ -14,11 +14,16 @@ const getCmnLinkV = async (objName, lang) => {
 
 const getLista = async (objName, stm, objId, lang) => {
   try {
-    console.log("********************* Lista ***********")
     let result = {};
     switch (stm) {
       case "cmn_objatts_v":
         result = await vModel.getCmnObjattsV(objName, lang);
+        break;
+      case "cmn_loc_v":
+        result = await vModel.getLocV(objName, lang);
+        break;
+      case "cmn_locobj_v":
+        result = await vModel.getLinkobjV(objName, objId, lang);
         break;
       case "cmn_obj_v":
         result = await vModel.getObjV(objName, lang);
@@ -29,18 +34,27 @@ const getLista = async (objName, stm, objId, lang) => {
       case "cmn_paratts_v":
         result = await vModel.getParattsV(objName, objId, lang);
         break;
-        case "cmn_parlink_v":
-          result = await vModel.getParlinkV(objName, objId, lang);
-          break;        
+      case "cmn_parlink_v":
+        result = await vModel.getParlinkV(objName, objId, lang);
+        break;
       case "cmn_objtree_json_v":
         result = await vModel.getObjTree(objName, lang);
         break;
-        case "cmn_terr_v":
-          result = await vModel.getTerrV(objName, lang);
-          break; 
-          case "cmn_terratts_v":
-            result = await vModel.getTerrattsV(objName, objId, lang);
-            break;                 
+      case "cmn_terr_v":
+        result = await vModel.getTerrV(objName, lang);
+        break;
+      case "cmn_terratts_v":
+        result = await vModel.getTerrattsV(objName, objId, lang);
+        break;
+      case "cmn_terrlink_v":
+        result = await vModel.getTerrlinkV(objName, objId, lang);
+        break;
+      case "cmn_curr_v":
+        result = await vModel.getCurrV(objName, lang);
+        break;
+      case "cmn_tgp_v":
+        result = await vModel.getTgpV(objName, lang);
+        break;
       default:
         console.error("Pogresan naziv za view");
     }

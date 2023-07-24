@@ -37,6 +37,44 @@ const getCmnLinkV = async (objName, lang) => {
   }
 };
 
+const getLocV = async (objName, lang) => {
+  const sqlRecenica =  
+           `select l.id, l.site, l.code, l.text , l.valid, l.longtext, l.lang, l.grammcase, l.text textx,
+            l.tp, getValueById(l.tp, 'cmn_loctpx_v', 'code', '${lang||'en'}') ctp, getValueById(l.tp, 'cmn_loctpx_v', 'text', '${lang||'en'}') ntp
+      from	cmn_locx_v l
+      where l.lang = '${lang||'en'}'`  
+      console.log(sqlRecenica, "****************************/////////")    
+  //const [rows] = await db.query(sqlRecenic);
+  let result = await db.query(sqlRecenica);
+  let rows = result.rows;
+  if (Array.isArray(rows)) {
+    return rows;
+  } else {
+    throw new Error(
+      `Greška pri dohvatanju slogova iz baze - abs find: ${rows}`
+    );
+  }
+};
+
+const getLinkobjV = async (objName, objId, lang) => {
+  const sqlRecenica =  
+  `select aa.id , aa.site , aa.obj, aa.loc, b.code cloc, b.text nloc, b.longtext, b.text textx 
+  from	cmn_locobj aa, cmn_locx_v b
+  where	aa.obj = ${objId}     
+  and 	b.lang = '${lang||'en'}'
+  and 	aa.loc = b.id`      
+ console.log(sqlRecenica, "****************************/////////")
+  let result = await db.query(sqlRecenica);
+  let rows = result.rows;
+  if (Array.isArray(rows)) {
+    return rows;
+  } else {
+    throw new Error(
+      `Greška pri dohvatanju slogova iz baze - abs find: ${rows}`
+    );
+  }
+};
+
 const getObjV = async (objName, lang) => {
   const sqlRecenica =  
            `select l.id, l.site, l.code, l.text , l.valid, l.lang, l.grammcase, l.text textx,
@@ -133,6 +171,25 @@ const getTerrattsV = async (objName, objId, lang) => {
   }
 };
 
+const getTerrlinkV = async (objName, objId, lang) => {
+  const sqlRecenica =  
+  `select aa.id , aa.site , aa.terr2 , aa.text, aa.begda, aa.endda, 
+        aa.terr1, getValueById(aa.terr1, 'cmn_terrx_v', 'code', '${lang||'en'}') cterr1, getValueById(aa.terr1, 'cmn_terrx_v', 'text', '${lang||'en'}') nterr1
+  from	cmn_terrlink aa
+  where aa.terr2 = ${objId}`      
+  //const [rows] = await db.query(sqlRecenic);
+ console.log(sqlRecenica, "****************************/////////")
+  let result = await db.query(sqlRecenica);
+  let rows = result.rows;
+  if (Array.isArray(rows)) {
+    return rows;
+  } else {
+    throw new Error(
+      `Greška pri dohvatanju slogova iz baze - abs find: ${rows}`
+    );
+  }
+};
+
 const getParlinkV = async (objName, objId, lang) => {
   const sqlRecenica =  
   `select aa.id , aa.site , aa.par2 , aa.text, aa.begda, aa.endda, 
@@ -141,6 +198,44 @@ const getParlinkV = async (objName, objId, lang) => {
   where aa.par2 = ${objId}`      
   //const [rows] = await db.query(sqlRecenic);
  console.log(sqlRecenica, "****************************/////////")
+  let result = await db.query(sqlRecenica);
+  let rows = result.rows;
+  if (Array.isArray(rows)) {
+    return rows;
+  } else {
+    throw new Error(
+      `Greška pri dohvatanju slogova iz baze - abs find: ${rows}`
+    );
+  }
+};
+
+const getCurrV = async (objName, lang) => {
+  const sqlRecenica =  
+           `select l.id, l.site, l.code, l.text, l.tp, l.begda, l.endda,
+            l.lang, l.grammcase, l.text textx,
+            l.country, getValueById(l.country, 'cmn_terrx_v', 'code', '${lang||'en'}') ccountry, getValueById(l.country, 'cmn_terrx_v', 'text', '${lang||'en'}') ncountry
+      from	cmn_currx_v l
+      where l.lang = '${lang||'en'}'`      
+  //const [rows] = await db.query(sqlRecenic);
+  let result = await db.query(sqlRecenica);
+  let rows = result.rows;
+  if (Array.isArray(rows)) {
+    return rows;
+  } else {
+    throw new Error(
+      `Greška pri dohvatanju slogova iz baze - abs find: ${rows}`
+    );
+  }
+};
+
+const getTgpV = async (objName, lang) => {
+  const sqlRecenica =  
+           `select l.id, l.site, l.code, l.text, l.valid,
+            l.lang, l.grammcase, l.text textx,
+            l.country, getValueById(l.country, 'cmn_terrx_v', 'code', '${lang||'en'}') ccountry, getValueById(l.country, 'cmn_terrx_v', 'text', '${lang||'en'}') ncountry
+      from	cmn_tgpx_v l
+      where l.lang = '${lang||'en'}'`      
+  //const [rows] = await db.query(sqlRecenic);
   let result = await db.query(sqlRecenica);
   let rows = result.rows;
   if (Array.isArray(rows)) {
@@ -216,43 +311,43 @@ const getObjTree = async (objName, lang) => {
              ) b
                JOIN d2 ON d2.id = b.parentid
           ), d3 AS (
-           SELECT d2.id,
-            d2.parentid,
+           SELECT d2.id::text,
+            d2.parentid::text,
             d2.site,
             d2.code,
             d2.text,
-            d2.tp,
+            d2.tp::text,
             d2.ctp,
             d2.ntp,
             d2.lang, 
             d2.grammcase,
-            d2.valid,
+            d2.valid::text,
               d2.level,
               NULL::jsonb AS children
              FROM d2
             WHERE d2.level = (( SELECT max(d2_1.level) AS max
                      FROM d2 d2_1))
           UNION
-           SELECT (branch.branch_parent).id AS id,
-              (branch.branch_parent).parentid AS parentid,
+           SELECT (branch.branch_parent).id::text AS id,
+              (branch.branch_parent).parentid::text AS parentid,
               (branch.branch_parent).site AS site,
               (branch.branch_parent).code AS code,
               (branch.branch_parent).text AS text,
-              (branch.branch_parent).tp AS tp,
+              (branch.branch_parent).tp::text AS tp,
               (branch.branch_parent).ctp AS ctp,
               (branch.branch_parent).ntp AS ntp,
               (branch.branch_parent).lang AS lang,
               (branch.branch_parent).grammcase AS grammcase,
-              (branch.branch_parent).valid AS valid,
+              (branch.branch_parent).valid::text AS valid,
               (branch.branch_parent).level AS level,
-              jsonb_strip_nulls(jsonb_agg(branch.branch_child - 'parentid'::text - 'level'::text ORDER BY (branch.branch_child ->> 'text'::text)) FILTER (WHERE (branch.branch_child ->> 'parentid'::text) = (branch.branch_parent).id::text)) AS jsonb_strip_nulls
+              jsonb_strip_nulls(jsonb_agg(branch.branch_child  - 'level'::text ORDER BY (branch.branch_child ->> 'text'::text)) FILTER (WHERE (branch.branch_child ->> 'parentid'::text) = (branch.branch_parent).id::text)) AS jsonb_strip_nulls
              FROM ( SELECT branch_parent.*::record AS branch_parent,
                       to_jsonb(branch_child.*) AS branch_child
                      FROM d2 branch_parent
                        JOIN d3 branch_child ON branch_child.level = (branch_parent.level + 1)) branch
             GROUP BY branch.branch_parent
           )
-   SELECT jsonb_pretty(jsonb_agg(to_jsonb(d3.*) - 'parentid'::text - 'level'::text)) AS tree
+   SELECT jsonb_pretty(jsonb_agg(to_jsonb(d3.*) - 'level'::text)) AS tree
      FROM d3
     WHERE d3.level = 0) x `;
 
@@ -264,6 +359,8 @@ const getObjTree = async (objName, lang) => {
     // Ako je tip kolone JSON, možete koristiti rows[0].tree::json umesto rows[0].tree
     const jsonString = rows[0].tree;
     const formattedJson = JSON.parse(jsonString);
+    //const formattedJson = JSON.parse(jsonString, (key, value) =>   typeof value === 'number' ? BigInt(value) : value);
+    //const formattedJson = JSON.stringify(JSON.parse(jsonString), null, 2);
     return formattedJson;
   } else {
     throw new Error(
@@ -324,12 +421,17 @@ const getCmnObjlinkV = async (objName, objId, lang) => {
 
 export default {
   getCmnLinkV,
+  getLocV,
+  getLinkobjV,
   getObjV,
   getParV,
   getParattsV,
   getParlinkV,
   getTerrV,
   getTerrattsV,
+  getTerrlinkV,
+  getCurrV,
+  getTgpV,
   getObjTree,
   getCmnObjattsV,
   getCmnObjlinkV,
