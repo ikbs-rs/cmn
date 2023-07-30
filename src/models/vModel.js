@@ -56,6 +56,29 @@ const getLocV = async (objName, lang) => {
   }
 };
 
+const getCmnLocByTxtV = async (objName, stm, item, objId, lang) => {
+  const sqlRecenica =  
+           `select l.id, l.site, l.code, l.text , l.valid, l.longtext, l.lang, l.grammcase, l.text textx,
+            l.tp, t.code ctp, t.text ntp
+      from	cmn_locx_v l, cmn_loctpx_v t
+      where l.lang = '${lang||'en'}'
+      and l.tp = t.id 
+      and t.lang = '${lang||'en'}'
+      and   ${item} = '${objId}'`  
+      console.log(sqlRecenica, "****************************/////////")    
+  //const [rows] = await db.query(sqlRecenic);
+  let result = await db.query(sqlRecenica);
+  let rows = result.rows;
+  if (Array.isArray(rows)) {
+    return rows;
+  } else {
+    throw new Error(
+      `Greška pri dohvatanju slogova iz baze - abs find: ${rows}`
+    );
+  }
+};
+
+
 const getLinkobjV = async (objName, objId, lang) => {
   const sqlRecenica =  
   `select aa.id , aa.site , aa.obj, aa.loc, b.code cloc, b.text nloc, b.longtext, b.text textx 
@@ -435,4 +458,5 @@ export default {
   getObjTree,
   getCmnObjattsV,
   getCmnObjlinkV,
+  getCmnLocByTxtV,
 };
