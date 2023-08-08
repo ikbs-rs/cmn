@@ -34,6 +34,25 @@ const entitiesInfo =
 		"text": "string"
 	  }
 	},
+	"cmn_inputtp": {
+		"attributes": {
+		  "id": "number",
+		  "site": "number",
+		  "code": "string",
+		  "text": "string",
+		  "valid": "number"
+		}
+	},
+	"cmn_inputtpx": {
+		"attributes": {
+		  "id": "number",
+		  "site": "number",
+		  "tableid": "number",
+		  "lang": "string",
+		  "grammcase": "number",
+		  "text": "string"
+		}
+	},		
 	"cmn_link": {
 	  "attributes": {
 		"id": "number",
@@ -470,6 +489,25 @@ const entitiesInfo =
 		"text": "string"
 	  }
 	},
+	"cmn_paymenttp": {
+		"attributes": {
+		  "id": "number",
+		  "site": "number",
+		  "code": "string",
+		  "text": "string",
+		  "valid": "number"
+		}
+	  },
+	  "cmn_paymenttpx": {
+		"attributes": {
+		  "id": "number",
+		  "site": "number",
+		  "tableid": "number",
+		  "lang": "string",
+		  "grammcase": "number",
+		  "text": "string"
+		}
+	  },	
 	"cmn_site": {
 	  "attributes": {
 		"id": "number",
