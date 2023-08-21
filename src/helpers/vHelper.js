@@ -55,6 +55,9 @@ const getLista = async (objName, stm, objId, lang) => {
       case "cmn_tgp_v":
         result = await vModel.getTgpV(objName, lang);
         break;
+      case "cmn_xsc_v":
+          result = await vModel.getXscV(objName, lang);
+          break;        
       default:
         console.error("Pogresan naziv za view");
     }
