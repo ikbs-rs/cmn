@@ -120,9 +120,13 @@ const entitiesInfo =
 		"id": "number",
 		"site": "number",
 		"tp": "number",
+		"loctp1": "number",
 		"loc1": "number",
+		"loctp2": "number",
 		"loc2": "number",
-		"long": "string",
+		"val": "string",
+		"hijerarhija": "number",
+		"onoff": "number",
 		"begda": "string",
 		"endda": "string"
 	  }

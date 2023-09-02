@@ -28,6 +28,9 @@ const getLista = async (objName, stm, objId, lang) => {
       case "cmn_obj_v":
         result = await vModel.getObjV(objName, lang);
         break;
+      case "cmn_obj_tp_v":
+          result = await vModel.getObjTpV(objName, objId, lang);
+          break;        
       case "cmn_par_v":
         result = await vModel.getParV(objName, lang);
         break;
@@ -40,6 +43,9 @@ const getLista = async (objName, stm, objId, lang) => {
       case "cmn_objtree_json_v":
         result = await vModel.getObjTree(objName, lang);
         break;
+      case "cmn_loctree_json_v":
+          result = await vModel.getLocTree(objName, lang);
+          break;        
       case "cmn_terr_v":
         result = await vModel.getTerrV(objName, lang);
         break;
@@ -77,8 +83,11 @@ const getListaById = async (objName, stm, objId, lang) => {
       case "cmn_objlink_v":
         var result = await vModel.getCmnObjlinkV(objName, objId, lang);
         break;
+        case "cmn_loclink_v":
+          var result = await vModel.getCmnLoclinkV(objName, objId, lang);
+          break;        
       default:
-        console.error("Pogresan naziv za view");
+        console.error(`Pogresan naziv za view ${stm}`);
     }
     return result;
   } catch (err) {
@@ -93,8 +102,27 @@ const getListaByText = async (objName, stm, item, objId, lang) => {
       case "cmn_locbytxt_v":
         var result = await vModel.getCmnLocByTxtV(objName, stm, item, objId, lang);
         break;
+        case "cmn_obj_tp_v":
+          var result = await vModel.getCmnObjByTxtV(objName, stm, item, objId, lang);
+          break;        
       default:
         console.error("Pogresan naziv za view");
+    }
+    return result;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+};
+
+const getListaByNum = async (objName, stm, item, objId, lang) => {
+  try {
+    switch (stm) {
+      case "tic_docbynum_v":
+        var result = await vModel.getCmnLocByTxtV(objName, stm, item, objId, lang);
+        break;
+      default:
+        console.error("Pogresan naziv za view, getListaByNum");
     }
     return result;
   } catch (err) {

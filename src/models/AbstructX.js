@@ -74,6 +74,7 @@ const update = async (sqlQuery, objName, objData, lang) => {
   try {
     const sqlQuery1 = `select count(*) from ${objName}x  WHERE tableid = ${objData.id} and lang = '${lang||'en'}'`
     await db.query("BEGIN");
+    console.log(sqlQuery, "****************", sqlQuery1, "****************");    
     const result1 = await db.query(sqlQuery);
     const result = await db.query(sqlQuery1);
     if (result.rows[0].count == 0) {
