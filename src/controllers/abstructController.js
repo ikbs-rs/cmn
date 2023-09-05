@@ -32,6 +32,7 @@ const getByStext = async (req, res) => {
 const add = async (req, res) => {
   try {
     const items = await abstructHelper.add(req.objName, req.body);
+    console.log(items, "#############################abstructController######################################")
     res.status(201).json({ message: `Stavka ${req.objName} je kreirana`, items });
   } catch (err) {
     res.status(500).json({ message: `Doslo je do greske add abstructController ${req.objName}:`, error: err.message });

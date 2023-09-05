@@ -534,7 +534,6 @@ const entitiesInfo =
 	"cmn_taxrate": {
 	  "attributes": {
 		"id": "number",
-		"cmn_id": "number",
 		"site": "number",
 		"tax": "number",
 		"rate": "number",
@@ -674,7 +673,7 @@ const entitiesInfo =
 	  "attributes": {
 		"id": "number",
 		"site": "number",
-		"tableid": "number",
+		"tgp": "number",
 		"tax": "number",
 		"begda": "string",
 		"endda": "string"

@@ -29,8 +29,8 @@ const getLista = async (objName, stm, objId, lang) => {
         result = await vModel.getObjV(objName, lang);
         break;
       case "cmn_obj_tp_v":
-          result = await vModel.getObjTpV(objName, objId, lang);
-          break;        
+        result = await vModel.getObjTpV(objName, objId, lang);
+        break;
       case "cmn_par_v":
         result = await vModel.getParV(objName, lang);
         break;
@@ -44,8 +44,8 @@ const getLista = async (objName, stm, objId, lang) => {
         result = await vModel.getObjTree(objName, lang);
         break;
       case "cmn_loctree_json_v":
-          result = await vModel.getLocTree(objName, lang);
-          break;        
+        result = await vModel.getLocTree(objName, lang);
+        break;
       case "cmn_terr_v":
         result = await vModel.getTerrV(objName, lang);
         break;
@@ -58,12 +58,24 @@ const getLista = async (objName, stm, objId, lang) => {
       case "cmn_curr_v":
         result = await vModel.getCurrV(objName, lang);
         break;
+      case "cmn_currrate_v":
+        result = await vModel.getCurrrateV(objName, objId, lang);
+        break;
+      case "cmn_tax_v":
+        result = await vModel.getTaxV(objName, lang);
+        break;
       case "cmn_tgp_v":
         result = await vModel.getTgpV(objName, lang);
         break;
+      case "cmn_tgptax_v":
+        result = await vModel.getTgptaxV(objName, objId, lang);
+        break;
+      case "cmn_taxrate_v":
+        result = await vModel.getTaxrateV(objName, objId, lang);
+        break;
       case "cmn_xsc_v":
-          result = await vModel.getXscV(objName, lang);
-          break;        
+        result = await vModel.getXscV(objName, lang);
+        break;
       default:
         console.error("Pogresan naziv za view");
     }
@@ -83,9 +95,9 @@ const getListaById = async (objName, stm, objId, lang) => {
       case "cmn_objlink_v":
         var result = await vModel.getCmnObjlinkV(objName, objId, lang);
         break;
-        case "cmn_loclink_v":
-          var result = await vModel.getCmnLoclinkV(objName, objId, lang);
-          break;        
+      case "cmn_loclink_v":
+        var result = await vModel.getCmnLoclinkV(objName, objId, lang);
+        break;
       default:
         console.error(`Pogresan naziv za view ${stm}`);
     }
@@ -100,11 +112,23 @@ const getListaByText = async (objName, stm, item, objId, lang) => {
   try {
     switch (stm) {
       case "cmn_locbytxt_v":
-        var result = await vModel.getCmnLocByTxtV(objName, stm, item, objId, lang);
+        var result = await vModel.getCmnLocByTxtV(
+          objName,
+          stm,
+          item,
+          objId,
+          lang
+        );
         break;
-        case "cmn_obj_tp_v":
-          var result = await vModel.getCmnObjByTxtV(objName, stm, item, objId, lang);
-          break;        
+      case "cmn_obj_tp_v":
+        var result = await vModel.getCmnObjByTxtV(
+          objName,
+          stm,
+          item,
+          objId,
+          lang
+        );
+        break;
       default:
         console.error("Pogresan naziv za view");
     }
@@ -119,7 +143,13 @@ const getListaByNum = async (objName, stm, item, objId, lang) => {
   try {
     switch (stm) {
       case "tic_docbynum_v":
-        var result = await vModel.getCmnLocByTxtV(objName, stm, item, objId, lang);
+        var result = await vModel.getCmnLocByTxtV(
+          objName,
+          stm,
+          item,
+          objId,
+          lang
+        );
         break;
       default:
         console.error("Pogresan naziv za view, getListaByNum");

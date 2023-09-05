@@ -274,6 +274,65 @@ const getCurrV = async (objName, lang) => {
   }
 };
 
+const getCurrrateV = async (objName, objId, lang) => {
+  const sqlRecenica =  
+  `
+  select aa.id , aa.site , aa.curr2 , aa.rate, aa.parity, aa.begda, aa.endda, 
+        aa.curr1, getValueById(aa.curr1, 'cmn_currx_v', 'code', '${lang||'en'}') ccurr1, getValueById(aa.curr1, 'cmn_currx_v', 'text', '${lang||'en'}') ncurr1
+  from	cmn_currrate aa
+  where aa.curr2 = ${objId}
+  `      
+  //const [rows] = await db.query(sqlRecenic);
+ console.log(sqlRecenica, "****************************/////////****************")
+  let result = await db.query(sqlRecenica);
+  let rows = result.rows;
+  if (Array.isArray(rows)) {
+    return rows;
+  } else {
+    throw new Error(
+      `Greška pri dohvatanju slogova iz baze - abs find: ${rows}`
+    );
+  }
+};
+
+const getTaxV = async (objName, lang) => {
+  const sqlRecenica =  
+           `select l.id, l.site, l.code, l.text, l.valid,
+            l.lang, l.grammcase, l.text textx,
+            l.country, getValueById(l.country, 'cmn_terrx_v', 'code', '${lang||'en'}') ccountry, getValueById(l.country, 'cmn_terrx_v', 'text', '${lang||'en'}') ncountry
+      from	cmn_taxx_v l
+      where l.lang = '${lang||'en'}'`      
+  //const [rows] = await db.query(sqlRecenic);
+  let result = await db.query(sqlRecenica);
+  let rows = result.rows;
+  if (Array.isArray(rows)) {
+    return rows;
+  } else {
+    throw new Error(
+      `Greška pri dohvatanju slogova iz baze - cmn_taxx_v find: ${rows}`
+    );
+  }
+};
+
+
+const getTaxrateV = async (objName, objId, lang) => {
+  const sqlRecenica =  
+  `select aa.id , aa.site , aa.tax , aa.rate, aa.begda, aa.endda
+  from	cmn_taxrate aa
+  where aa.tax = ${objId}`      
+  //const [rows] = await db.query(sqlRecenic);
+ console.log(sqlRecenica, "****************************/////////****************")
+  let result = await db.query(sqlRecenica);
+  let rows = result.rows;
+  if (Array.isArray(rows)) {
+    return rows;
+  } else {
+    throw new Error(
+      `Greška pri dohvatanju slogova iz baze - abs find: ${rows}`
+    );
+  }
+};
+
 const getTgpV = async (objName, lang) => {
   const sqlRecenica =  
            `select l.id, l.site, l.code, l.text, l.valid,
@@ -292,6 +351,27 @@ const getTgpV = async (objName, lang) => {
     );
   }
 };
+
+
+const getTgptaxV = async (objName, objId, lang) => {
+  const sqlRecenica =  
+  `select aa.id , aa.site , aa.tgp , aa.begda, aa.endda, 
+        aa.tax, getValueById(aa.tax, 'cmn_taxx_v', 'code', '${lang||'en'}') ctax, getValueById(aa.tax, 'cmn_taxx_v', 'text', '${lang||'en'}') ntax
+  from	cmn_tgptax aa
+  where aa.tgp = ${objId}`      
+  //const [rows] = await db.query(sqlRecenic);
+ console.log(sqlRecenica, "****************************/////////****************")
+  let result = await db.query(sqlRecenica);
+  let rows = result.rows;
+  if (Array.isArray(rows)) {
+    return rows;
+  } else {
+    throw new Error(
+      `Greška pri dohvatanju slogova iz baze - abs find: ${rows}`
+    );
+  }
+};
+
 
 const getObjTree = async (objName, lang) => {
   const sqlRecenica = 
@@ -643,7 +723,11 @@ export default {
   getTerrattsV,
   getTerrlinkV,
   getCurrV,
+  getCurrrateV,
+  getTaxV,
+  getTaxrateV,
   getTgpV,
+  getTgptaxV,
   getObjTree,
   getLocTree,
   getCmnObjattsV,

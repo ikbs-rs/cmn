@@ -5,8 +5,9 @@ const saltRounds = 10;
 
 //# add function
 const add = async (sqlQuery) => {
-  console.log(sqlQuery, "**********************ADD**********************")
+
   const result = await db.query(sqlQuery);
+  console.log(sqlQuery, "**********************ADD**********************", result)  
   return result.rowCount;
 };
 
