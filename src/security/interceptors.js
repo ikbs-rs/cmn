@@ -2,13 +2,15 @@ import axios from "axios";
 import jwt from "jsonwebtoken";
 import jwtConfig from "../config/jwtConfig.js";
 import roll from "./guards/roll.js";
+//import https from 'https';
 
 // funkcija za proveru ispravnosti JWT tokena za postojeci modul CMD.
 export const checkJwt = async (req, res, next) => {
   try {
     const jwtServer = process.env.JWT_URL;
     const token = req.headers.authorization?.replace("Bearer ", "");
-
+    //const agent = new https.Agent({ rejectUnauthorized: false });
+//console.log(jwtServer, "------------------jwtServer----------------")
     if (!jwtServer) {
       throw new Error(
         "Adresa udaljenog servera nije definisana u .env datoteci."
@@ -23,12 +25,13 @@ export const checkJwt = async (req, res, next) => {
         });
       } else {
         const checkJwtUrl = `${jwtServer}/checkJwt`;
+        //console.log(checkJwtUrl, "------------------checkJwtUrl----------------")
         const response = await axios.post(`${checkJwtUrl}`, {}, {
           headers: { Authorization: `Bearer ${token}` },
-          timeout: 5000, // vreme za koje se očekuje odgovor od udaljenog servera (u milisekundama)
+          timeout: 5000 // vreme za koje se očekuje odgovor od udaljenog servera (u milisekundama)
         });
         // provera statusa odgovora
-        if (response.status === 200 && response.data.success) {
+        if (response.status == 200 && response.data.success) {
           // ako je JWT token ispravan, prelazimo na sledeći middleware
           req.userId = response.data.userId
           req.decodeJwt = response.data.decodeJwt
@@ -55,6 +58,7 @@ export const checkPermissions = (par1 = "1", par2 = "1") => {
   return async (req, res, next) => {
     try {
       // Dohvatam objekat i korisnika i prosledjujem dalje
+      //const agent = new https.Agent({ rejectUnauthorized: false });
       const objName = req.objName;
       const userId = req.userId;
       const jwtServer = process.env.JWT_URL
@@ -83,7 +87,8 @@ export const checkPermissions = (par1 = "1", par2 = "1") => {
               Authorization: `Bearer ${token}`
             }
           }
-        );        
+        );   
+    
         if (response.status === 200 && response.data.allowed) {
           next();
         } else {

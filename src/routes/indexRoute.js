@@ -9,12 +9,11 @@ const router = express.Router();
 //router.use(checkJwt); // provera JWT tokena na svakom zahtevu
 router.use(express.json())
 
-/*
+
 router.use((req, res, next) => { 
-  console.log("******************", req.url)
   next();
 });
-*/
+
 
 router.use("/", (req, res, next) => {
   
@@ -34,6 +33,7 @@ router.use((req, res, next) => {
   if (req.path.startsWith("/adm/services/sign")) {
     return next();
   }
+  //console.log("***************************checkJwt********************")
   checkJwt(req, res, next);
 });
 

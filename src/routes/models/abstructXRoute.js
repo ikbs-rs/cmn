@@ -6,7 +6,6 @@ import { checkPermissions } from "../../security/interceptors.js";
 const router = express.Router();
 
 router.use("/", (req, res, next) => {
-  
   const urlParts = req.url.split("/");
   // const slParam = req.query.sl;
   req.objName2 = urlParts[1];

@@ -1,5 +1,24 @@
 const entitiesInfo = 
 {
+	"cmn_ccard": {
+		"attributes": {
+		"id": "number" ,
+		"site": "number",
+		"code": "string",
+		"text": "string",
+		"valid": "number"
+		}
+	},
+	"cmn_ccardx": {
+	  "attributes": {
+		"id": "number",
+		"site": "number",
+		"tableid": "number",
+		"lang": "string",
+		"grammcase": "number",
+		"text": "string"
+	  }
+	},	
 	"cmn_curr": {
 	  "attributes": {
 		"id": "number",
