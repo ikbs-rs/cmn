@@ -11,6 +11,7 @@ router.use(express.json())
 
 
 router.use((req, res, next) => { 
+  console.log("***************************iRout********************")
   next();
 });
 
@@ -33,7 +34,7 @@ router.use((req, res, next) => {
   if (req.path.startsWith("/adm/services/sign")) {
     return next();
   }
-  //console.log("***************************checkJwt********************")
+  console.log("***************************iRout********************")
   checkJwt(req, res, next);
 });
 

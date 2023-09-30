@@ -24,6 +24,7 @@ export const checkJwt = async (req, res, next) => {
           next();
         });
       } else {
+        console.log("CMN inteceptors 27!!");
         const checkJwtUrl = `${jwtServer}/checkJwt`;
         //console.log(checkJwtUrl, "------------------checkJwtUrl----------------")
         const response = await axios.post(`${checkJwtUrl}`, {}, {
@@ -31,10 +32,11 @@ export const checkJwt = async (req, res, next) => {
           timeout: 5000 // vreme za koje se očekuje odgovor od udaljenog servera (u milisekundama)
         });
         // provera statusa odgovora
+        console.log("CMN inteceptors 35!!", response.data);
         if (response.status == 200 && response.data.success) {
           // ako je JWT token ispravan, prelazimo na sledeći middleware
           req.userId = response.data.userId
-          req.decodeJwt = response.data.decodeJwt
+          req.username = response.data.username
           next();
         } else {
           // ako nije ispravan, vraćamo poruku o grešci
