@@ -58,15 +58,17 @@ const find = async (objName, lang) => {
 //# find by id function
 const findById = async (objName, lang, id) => {
   //const result = await db.query(`SELECT * FROM ${objName} WHERE id = ?`, [id]);
+  const sqlRecenica =  `SELECT a.*, coalesce(b.text, a.text) textx, b.lang  
+                      FROM ${objName} a 
+                      left JOIN ( SELECT * FROM ${objName}x where lang = '${lang||'en'}') b
+                      ON a.id = b.tableid   
+                      where a.id = ${id}`
 
   const result = await db.query(
-    `SELECT a.*, coalesce(b.text, a.text) textx, b.lang  
-    FROM ${objName} a 
-    left JOIN ( SELECT * FROM ${objName}x where lang = '${lang||'en'}') b
-    ON a.id = b.tableid   
-    where a.id = ${id}`
+    sqlRecenica
     );
-  return result.rows;
+    //console.log(objName, "*****************findById******************-----------------", result.rows )    
+  return result.rows[0];
 };
 
 //# update function
@@ -131,6 +133,7 @@ const findItem = async (objName, lang, item, id) => {
                 ON a.id = b.tableid  
                 where a.id = ${id}`;    
   } 
+  
   const result = await db.query(sqlString);
   return result.rows[0];
 };
@@ -165,7 +168,8 @@ const findAllbyItem = async (objName, lang, item, itemValue) => {
                         where lang = '${lang||'en'}'
                         ) b
                     ON o.id = b.tableid 
-                    where o.${item} = ${value}`;                    
+                    where o.${item} = ${value}`;  
+                    console.log("********findAllbyItem***********", sqlString)                  
   const result = await db.query(sqlString);
   const rows = result.rows;
   if (Array.isArray(rows)) {

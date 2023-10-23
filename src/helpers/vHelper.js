@@ -129,6 +129,15 @@ const getListaByText = async (objName, stm, item, objId, lang) => {
           lang
         );
         break;
+        case "cmn_par_tp_v":
+          var result = await vModel.getCmnParByTxtV(
+            objName,
+            stm,
+            item,
+            objId,
+            lang
+          );
+          break;        
       default:
         console.error("Pogresan naziv za view");
     }

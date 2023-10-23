@@ -78,6 +78,7 @@ router.use('/cmn/tgptax', checkPermissions(), abstruct)
 router.use('/cmn/um', checkPermissions(), abstruct)
 router.use('/cmn/umparity', checkPermissions(), abstruct)
 
+router.use('/cmn/x/ccard', checkPermissions(), abstructX)
 router.use('/cmn/x/curr', checkPermissions(), abstructX)
 router.use('/cmn/x/inputtp', checkPermissions(), abstructX)
 router.use('/cmn/x/link', checkPermissions(), abstructX)

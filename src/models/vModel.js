@@ -139,6 +139,30 @@ const getCmnObjByTxtV = async (objName, stm, item, objId, lang) => {
   }
 };
 
+const getCmnParByTxtV = async (objName, stm, item, objId, lang) => {
+  const sqlRecenica =  
+      `
+      select l.id, l.site, l.code, l.text , l.short, l.address, l.place, l.postcode, l.tel, l.activity, l.pib, l.idnum,
+            l.pdvnum, l.begda, l.endda, l.lang, l.grammcase, l.text textx,
+            l.tp, getValueById(l.tp, 'cmn_partpx_v', 'code', '${lang||'en'}') ctp, getValueById(l.tp, 'cmn_partpx_v', 'text', '${lang||'en'}') ntp
+      from	cmn_parx_v l, cmn_partp t
+      where ${item} = '${objId}'  
+      and   t.id = l.tp
+      and   l.lang = '${lang||'en'}'
+      ` 
+      console.log(sqlRecenica, "*************sqlRecenica************")     
+  //const [rows] = await db.query(sqlRecenic);
+  let result = await db.query(sqlRecenica);
+  let rows = result.rows;
+  if (Array.isArray(rows)) {
+    return rows;
+  } else {
+    throw new Error(
+      `Greška pri dohvatanju slogova iz baze - abs find: ${rows}`
+    );
+  }
+};
+
 const getParV = async (objName, lang) => {
   const sqlRecenica =  
            `select l.id, l.site, l.code, l.text, l.short, l.address, l.place, l.postcode, l.tel, l.activity,
@@ -403,7 +427,7 @@ const getObjTree = async (objName, lang) => {
                   co.grammcase,
                   co."valid" 
                  FROM cmn_objx_v co
-                WHERE co.id = '1681750967634497536'::bigint::numeric             
+                WHERE co.id = '1707106980956868608'::bigint::numeric             
              ) b
             WHERE b.parentid IS NULL
           UNION ALL
@@ -525,7 +549,7 @@ const getLocTree = async (objName, lang) => {
                   co.grammcase,
                   co."valid" 
                  FROM cmn_locx_v co
-                WHERE co.id = '1681750967634497536'::bigint::numeric             
+                WHERE co.id = '1707106091126886400'::bigint::numeric             
              ) b
             WHERE b.parentid IS NULL
           UNION ALL
@@ -693,7 +717,7 @@ const getXscV = async (objName, lang) => {
             l.tp, getValueById(l.tp, 'cmn_loctpx_v', 'code', '${lang||'en'}') ctp, getValueById(l.tp, 'cmn_loctpx_v', 'text', '${lang||'en'}') ntp
       from  cmn_locx_v l, cmn_loctp t, adm_dbparameter d
       where l.lang = '${lang||'en'}'
-      and d.comment = 'XSC'
+      and d.code = 'XSC'
       and d.code = t.code
       and t.id = l.tp
       `  
@@ -716,6 +740,7 @@ export default {
   getLinkobjV,
   getObjV,
   getCmnObjByTxtV,
+  getCmnParByTxtV,
   getParV,
   getParattsV,
   getParlinkV,
@@ -734,6 +759,5 @@ export default {
   getCmnObjlinkV,
   getCmnLoclinkV,
   getCmnLocByTxtV,
-  getCmnObjByTxtV,
   getXscV,
 };
