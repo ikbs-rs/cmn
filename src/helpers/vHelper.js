@@ -25,6 +25,9 @@ const getLista = async (objName, stm, objId, lang) => {
       case "cmn_locobj_v":
         result = await vModel.getLinkobjV(objName, objId, lang);
         break;
+      case "cmn_locterr_v":
+        result = await vModel.getLocterrV(objName, objId, lang);
+        break;
       case "cmn_obj_v":
         result = await vModel.getObjV(objName, lang);
         break;

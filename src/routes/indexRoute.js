@@ -76,6 +76,7 @@ router.use('/cmn/taxrate', checkPermissions(), abstruct)
 
 router.use('/cmn/terratts', checkPermissions(), abstruct)
 router.use('/cmn/terrlink', checkPermissions(), abstruct)
+router.use('/cmn/terrloc', checkPermissions(), abstruct)
 
 router.use('/cmn/tgptax', checkPermissions(), abstruct)
 router.use('/cmn/um', checkPermissions(), abstruct)

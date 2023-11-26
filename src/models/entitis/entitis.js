@@ -646,7 +646,9 @@ const entitiesInfo =
 	  "attributes": {
 		"id": "number",
 		"terr": "number",
-		"loc": "number"
+		"loc": "number",
+		"begda": "string",
+		"endda": "string"
 	  }
 	},
 	"cmn_terrtp": {

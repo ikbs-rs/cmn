@@ -284,9 +284,9 @@ const getTerrlinkV = async (objName, objId, lang) => {
 
 const getLocterrV = async (objName, objId, lang) => {
   const sqlRecenica =  
-  `select aa.id , aa.site , aa.loc, aa.begda, aa.endda, 
+  `select aa.id , aa.loc, aa.begda, aa.endda, 
         aa.terr, getValueById(aa.terr, 'cmn_terrx_v', 'code', '${lang||'en'}') cterr, getValueById(aa.terr, 'cmn_terrx_v', 'text', '${lang||'en'}') nterr
-  from	cmn_locterr aa
+  from	cmn_terrloc aa
   where aa.loc = ${objId}`      
   //const [rows] = await db.query(sqlRecenic);
  console.log(sqlRecenica, "***************getLocterrV*************/////////")
