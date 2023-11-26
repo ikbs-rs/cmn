@@ -33,6 +33,7 @@ const findById = async (objName, id) => {
 
 //# update function
 const update = async (sqlQuery) => {
+  console.log(sqlQuery, "**********************UPDATE**********************")  
   const result = await db.query(sqlQuery);
   return result.rowCount;
 };

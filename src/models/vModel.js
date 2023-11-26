@@ -98,6 +98,28 @@ const getLinkobjV = async (objName, objId, lang) => {
   }
 };
 
+
+const getObjsettV = async (objName, objId, lang) => {
+  const sqlRecenica =  
+  `
+  select aa.*
+  from	cmn_objx_v aa, cmn_objtp b
+  where	b.code = '${objId}'     
+  and 	aa.lang = '${lang||'en'}'
+  and 	aa.tp = b.id
+  `      
+ console.log(sqlRecenica, "****************************/////////")
+  let result = await db.query(sqlRecenica);
+  let rows = result.rows;
+  if (Array.isArray(rows)) {
+    return rows;
+  } else {
+    throw new Error(
+      `Greška pri dohvatanju slogova iz baze - abs find: ${rows}`
+    );
+  }
+};
+
 const getObjV = async (objName, lang) => {
   const sqlRecenica =  
            `select l.id, l.site, l.code, l.text , l.valid, l.lang, l.grammcase, l.text textx,
@@ -249,6 +271,25 @@ const getTerrlinkV = async (objName, objId, lang) => {
   where aa.terr2 = ${objId}`      
   //const [rows] = await db.query(sqlRecenic);
  console.log(sqlRecenica, "****************************/////////")
+  let result = await db.query(sqlRecenica);
+  let rows = result.rows;
+  if (Array.isArray(rows)) {
+    return rows;
+  } else {
+    throw new Error(
+      `Greška pri dohvatanju slogova iz baze - abs find: ${rows}`
+    );
+  }
+};
+
+const getLocterrV = async (objName, objId, lang) => {
+  const sqlRecenica =  
+  `select aa.id , aa.site , aa.loc, aa.begda, aa.endda, 
+        aa.terr, getValueById(aa.terr, 'cmn_terrx_v', 'code', '${lang||'en'}') cterr, getValueById(aa.terr, 'cmn_terrx_v', 'text', '${lang||'en'}') nterr
+  from	cmn_locterr aa
+  where aa.loc = ${objId}`      
+  //const [rows] = await db.query(sqlRecenic);
+ console.log(sqlRecenica, "***************getLocterrV*************/////////")
   let result = await db.query(sqlRecenica);
   let rows = result.rows;
   if (Array.isArray(rows)) {
@@ -692,7 +733,7 @@ const getCmnObjlinkV = async (objName, objId, lang) => {
 
 const getCmnLoclinkV = async (objName, objId, lang) => {
   const sqlRecenica = 
-    `select  l.id, l.site, l.loctp2, l.loc2, 
+    `select  l.id, l.site, l.loctp2, l.loc2, l.tp,
             l.loctp1, getValueById(l.loctp1, 'cmn_loctpx_v', 'code', '${lang||'en'}') cloctp1, getValueById(l.loctp1, 'cmn_loctpx_v', 'text', '${lang||'en'}') nloctp1,
             l.loc1, getValueById(l.loc1, 'cmn_locx_v', 'code', '${lang||'en'}') cloc1, getValueById(l.loc1, 'cmn_locx_v', 'text', '${lang||'en'}') nloc1,   		 
             l.begda, l.endda, l.val, l.hijerarhija, l.onoff
@@ -738,7 +779,9 @@ export default {
   getCmnLinkV,
   getLocV,
   getLinkobjV,
+  getLocterrV,
   getObjV,
+  getObjsettV,
   getCmnObjByTxtV,
   getCmnParByTxtV,
   getParV,

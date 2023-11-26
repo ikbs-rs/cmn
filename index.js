@@ -36,7 +36,6 @@ app.use((req, res, next) => {
 });
 
 app.use((req, res, next) => { 
-  console.log("************CMN!!**************", req.url)
   next();
 });
 
@@ -53,11 +52,11 @@ const httpsServer = https.createServer(credentials, app);
 
 
  httpServer.listen(httpPort, () => {
-   console.log(`HTTP Server je pokrenut na adresi ${httpPort}`);
+   console.log(`HTTP Server je pokrenut na adresi ${webDomen}  ${rootDir} : ${httpPort}`);
  });
 
 httpsServer.listen(httpsPort, () => {
-  console.log(`HTTPS Server je pokrenut na adresi ${httpsPort}`);
+  console.log(`HTTPS Server je pokrenut na adresi ${webDomen}  ${rootDir} : ${httpsPort}`);
 });
 
 

@@ -6,12 +6,11 @@ import { checkJwt, checkPermissions, checkPermissionsEx } from '../security/inte
 
 const router = express.Router();
 
-//router.use(checkJwt); // provera JWT tokena na svakom zahtevu
+router.use(checkJwt); // provera JWT tokena na svakom zahtevu
 router.use(express.json())
 
 
 router.use((req, res, next) => { 
-  console.log("***************************iRout********************")
   next();
 });
 
@@ -30,12 +29,16 @@ router.use("/", (req, res, next) => {
   next();
 });
 
-router.use((req, res, next) => {
+router.use(async (req, res, next) => {
   if (req.path.startsWith("/adm/services/sign")) {
     return next();
   }
-  console.log("***************************iRout********************")
-  checkJwt(req, res, next);
+  try {  
+    await  checkJwt(req, res, next);
+  } catch (error) {
+    console.error("Greška prilikom izvršavanja checkJwt:", error);
+    res.status(401).json({ error: "Unauthorized" });
+  }  
 });
 
 // Moze da se svede na jedan ruter ali volim da vidim sta je sve implementirano!!!

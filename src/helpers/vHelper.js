@@ -28,6 +28,9 @@ const getLista = async (objName, stm, objId, lang) => {
       case "cmn_obj_v":
         result = await vModel.getObjV(objName, lang);
         break;
+      case "cmn_objsett_v":
+        result = await vModel.getObjsettV(objName, objId, lang);
+        break;
       case "cmn_obj_tp_v":
         result = await vModel.getObjTpV(objName, objId, lang);
         break;
@@ -129,15 +132,15 @@ const getListaByText = async (objName, stm, item, objId, lang) => {
           lang
         );
         break;
-        case "cmn_par_tp_v":
-          var result = await vModel.getCmnParByTxtV(
-            objName,
-            stm,
-            item,
-            objId,
-            lang
-          );
-          break;        
+      case "cmn_par_tp_v":
+        var result = await vModel.getCmnParByTxtV(
+          objName,
+          stm,
+          item,
+          objId,
+          lang
+        );
+        break;
       default:
         console.error("Pogresan naziv za view");
     }

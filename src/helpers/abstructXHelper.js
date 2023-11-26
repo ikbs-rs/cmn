@@ -10,17 +10,19 @@ const add = async (objName, objData, lang) => {
   try {
     let objName1 = objName
     let objData1 = objData
-    let objName2 = `${objName}x`    
+    let objName2 = `${objName}x`
     let objData2 = {}
 
     if (!objData1.id || objData1.id !== null) {
-        objData1.id = await uniqueId();
+      objData1.id = await uniqueId();
     }
- 
+    if (objData1.hasOwnProperty('code') || obj.code === null || obj.code === "") {
+      objData1.code = objData1.id;
+    }
     objData2.id = await uniqueId();
     objData2.site = null
     objData2.tableid = objData1.id
-    objData2.lang = lang ||'en'
+    objData2.lang = lang || 'en'
     objData2.grammcase = 1
     objData2.text = objData1.text
 
@@ -40,7 +42,7 @@ const add = async (objName, objData, lang) => {
 };
 
 const getAll = async (objName, lang) => {
-  try { 
+  try {
     const result = await abstractModel.find(objName, lang);
     return result;
   } catch (err) {
@@ -73,7 +75,7 @@ const update = async (objName, objData, lang) => {
   try {
 
     const sqlQuery = await abstructQuery.getUpdateQueryX(objName, objData);
-    const result = await abstractModel.update(sqlQuery, objName,  objData, lang);
+    const result = await abstractModel.update(sqlQuery, objName, objData, lang);
     return result;
   } catch (err) {
     console.log(err);

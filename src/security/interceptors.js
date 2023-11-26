@@ -10,7 +10,6 @@ export const checkJwt = async (req, res, next) => {
     const jwtServer = process.env.JWT_URL;
     const token = req.headers.authorization?.replace("Bearer ", "");
     //const agent = new https.Agent({ rejectUnauthorized: false });
-//console.log(jwtServer, "------------------jwtServer----------------")
     if (!jwtServer) {
       throw new Error(
         "Adresa udaljenog servera nije definisana u .env datoteci."
@@ -26,10 +25,10 @@ export const checkJwt = async (req, res, next) => {
       } else {
         console.log("CMN inteceptors 27!!");
         const checkJwtUrl = `${jwtServer}/checkJwt`;
-        //console.log(checkJwtUrl, "------------------checkJwtUrl----------------")
         const response = await axios.post(`${checkJwtUrl}`, {}, {
           headers: { Authorization: `Bearer ${token}` },
-          timeout: 5000 // vreme za koje se očekuje odgovor od udaljenog servera (u milisekundama)
+          timeout: 5000,  // vreme za koje se očekuje odgovor od udaljenog servera (u milisekundama)
+          family: 4
         });
         // provera statusa odgovora
         console.log("CMN inteceptors 35!!", response.data);
@@ -39,6 +38,7 @@ export const checkJwt = async (req, res, next) => {
           req.username = response.data.username
           next();
         } else {
+          console.log("01------------------checkJwtUrl-------------NO---")
           // ako nije ispravan, vraćamo poruku o grešci
           return res
             .status(401)
@@ -47,6 +47,7 @@ export const checkJwt = async (req, res, next) => {
       }
     }
   } catch (error) {
+    console.log("02------------------checkJwtUrl-------------ERROR---", error)
     // u slučaju greške, vraćamo objekat sa informacijama o grešci
     return res.status(error.response?.status || 500).json({
       message: error.message || "Internal Server Error",
