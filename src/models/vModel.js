@@ -775,6 +775,31 @@ const getXscV = async (objName, lang) => {
   }
 };
 
+const getXscDDV = async (objName, objId, lang) => {
+  const sqlRecenica = 
+      `
+      select l.id, l.site, l.code, l.text , l.valid, l.graftp, l.latlongs, l.radius, l.color, l.fillcolor, l.originfillcolor, l.rownum, l.grammcase, l.text textx,
+            l.tp, getValueById(l.tp, 'cmn_loctpx_v', 'code', '${lang||'en'}') ctp, getValueById(l.tp, 'cmn_loctpx_v', 'text', '${lang||'en'}') ntp
+      from  cmn_locx_v l, cmn_loctp t, tic_event e, cmn_loclink ll
+      where l.lang = '${lang||'en'}'
+      and t.code = 'XSCH'
+      and t.id = l.tp
+      and e.id = ${objId}
+      and ll.loc2 = e.loc 
+      and ll.loc1 = l.id
+      `  
+      console.log(sqlRecenica, "****************************/////////")    
+  //const [rows] = await db.query(sqlRecenic);
+  let result = await db.query(sqlRecenica);
+  let rows = result.rows;
+  if (Array.isArray(rows)) {
+    return rows;
+  } else {
+    throw new Error(
+      `Greška pri dohvatanju slogova iz baze - abs find: ${rows}`
+    );
+  }
+};
 export default {
   getCmnLinkV,
   getLocV,
@@ -803,4 +828,5 @@ export default {
   getCmnLoclinkV,
   getCmnLocByTxtV,
   getXscV,
+  getXscDDV,
 };
