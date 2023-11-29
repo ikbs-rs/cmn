@@ -101,7 +101,9 @@ const entitiesInfo =
 		"text": "string",
 		"longtext": "string",
 		"tp": "number",
-		"valid": "number"
+		"valid": "number",
+		"color": "string",
+		"icon": "string"
 	  }
 	},
 	"cmn_locatt": {
@@ -259,7 +261,9 @@ const entitiesInfo =
 		"code": "string",
 		"text": "string",
 		"tp": "number",
-		"valid": "number"
+		"valid": "number",
+		"color": "string",
+		"icon": "string"
 	  }
 	},
 	"cmn_objatt": {

@@ -58,6 +58,7 @@ const getByStext = async (objName, value) => {
 
 const update = async (objName, objData) => {
   try {
+    console.log("***************update*****************", objData)
     const sqlQuery = await abstructQuery.getUpdateQuery(objName, objData);
     const result = await abstractModel.update(sqlQuery);
     return result;
