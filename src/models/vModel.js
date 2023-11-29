@@ -39,7 +39,7 @@ const getCmnLinkV = async (objName, lang) => {
 
 const getLocV = async (objName, lang) => {
   const sqlRecenica =  
-           `select l.id, l.site, l.code, l.text , l.valid, l.longtext, l.lang, l.grammcase, l.text textx,
+           `select l.id, l.site, l.code, l.text , l.valid, l.longtext, l.lang, l.grammcase, l.text textx, l.color, l.icon, 
             l.tp, getValueById(l.tp, 'cmn_loctpx_v', 'code', '${lang||'en'}') ctp, getValueById(l.tp, 'cmn_loctpx_v', 'text', '${lang||'en'}') ntp
       from	cmn_locx_v l
       where l.lang = '${lang||'en'}'`  
@@ -122,7 +122,7 @@ const getObjsettV = async (objName, objId, lang) => {
 
 const getObjV = async (objName, lang) => {
   const sqlRecenica =  
-           `select l.id, l.site, l.code, l.text , l.valid, l.lang, l.grammcase, l.text textx,
+           `select l.id, l.site, l.code, l.text , l.valid, l.lang, l.grammcase, l.text textx, l.color, l.icon,
             l.tp, getValueById(l.tp, 'cmn_objtpx_v', 'code', '${lang||'en'}') ctp, getValueById(l.tp, 'cmn_objtpx_v', 'text', '${lang||'en'}') ntp
       from	cmn_objx_v l
       where l.lang = '${lang||'en'}'`      
