@@ -151,6 +151,7 @@ const findIdbyItem = async (objName, lang, item, itemValue) => {
                   and b.lang = '${lang||'en'}' 
                   and b.text = ${value}`;      
   }
+  console.log(sqlString, "*******************findIdbyItem**************************")
   const { rows } = await db.query(sqlString);
   return rows[0];
 };

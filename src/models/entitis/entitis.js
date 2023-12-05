@@ -149,7 +149,9 @@ const entitiesInfo =
 		"hijerarhija": "number",
 		"onoff": "number",
 		"begda": "string",
-		"endda": "string"
+		"endda": "string",
+		"color": "string",
+		"icon": "string"
 	  }
 	},
 	"cmn_loclinktp": {

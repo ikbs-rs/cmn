@@ -21,7 +21,7 @@ const getLista = async (req, res) => {
 
 const getListaById = async (req, res) => {
   try {
-    const item = await vHelper.getListaById( req.objName, req.query.stm, req.query.id, req.query.sl||'en');
+    const item = await vHelper.getListaById( req.objName, req.query.stm, req.query.item, req.query.id, req.query.sl||'en');
     res.status(200).json({ item }); 
   } catch (err) {
     res.status(500).json({ message: `Doslo je do greske getListaById vController ${req.objName}`, error: err.message });
