@@ -1161,7 +1161,7 @@ const getCmnLoclinkLLV = async (objName, objId, item, lang) => {
 const getXscV = async (objName, lang) => {
   const sqlRecenica =
     `
-      select l.id, l.site, l.code, l.text , l.valid, l.graftp, l.latlongs, l.radius, l.color, l.fillcolor, l.originfillcolor, l.rownum, l.grammcase, l.text textx,
+      select l.id, l.site, l.code, l.text , l.valid, l.grammcase, l.text textx,
             l.tp, getValueById(l.tp, 'cmn_loctpx_v', 'code', '${lang || 'en'}') ctp, getValueById(l.tp, 'cmn_loctpx_v', 'text', '${lang || 'en'}') ntp
       from  cmn_locx_v l, cmn_loctp t, adm_dbparameter d
       where l.lang = '${lang || 'en'}'

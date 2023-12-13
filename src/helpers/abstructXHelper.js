@@ -12,6 +12,8 @@ const add = async (objName, objData, lang) => {
     let objData1 = objData
     let objName2 = `${objName}x`
     let objData2 = {}
+    let objName3 = ``
+    let objData3 = {}
 
     if (!objData1.id || objData1.id !== null) {
       objData1.id = await uniqueId();
@@ -19,6 +21,7 @@ const add = async (objName, objData, lang) => {
     if (objData1.hasOwnProperty('code') || obj.code === null || obj.code === "") {
       objData1.code = objData1.id;
     }
+
     objData2.id = await uniqueId();
     objData2.site = null
     objData2.tableid = objData1.id
@@ -33,7 +36,26 @@ const add = async (objName, objData, lang) => {
     }
     const sqlQuery1 = await abstructQuery.getInsertQuery(objName1, objData1);
     const sqlQuery2 = await abstructQuery.getInsertQuery(objName2, objData2);
-    const result = await abstractModel.add(sqlQuery1, sqlQuery2);
+    let sqlQuery3 = null;
+    console.log(objName, "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&objName&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
+    if (objName === 'cmn_loc') {
+      const result31 = await getById('cmn_loctp', objData1.tp, lang)
+      console.log(result31, "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&result31&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
+      if (result31.code === 'XSC') {
+        objName3 = 'tic_venue'
+        objData3.venue_id = objData1.id;
+        objData3.site = null
+        objData3.venue_name = objData1.text
+        objData3.loc_id = objData1.id
+        objData3.code = objData1.code
+        objData3.venue_type = objData1.tp
+
+        sqlQuery3 = await abstructQuery.getInsertQuery(objName3, objData3);
+
+      }
+    }
+    const result = await abstractModel.add(sqlQuery1, sqlQuery2, sqlQuery3);
+
     return objData1.id; //result;
   } catch (err) {
     console.log(err);

@@ -745,6 +745,26 @@ const entitiesInfo =
 		"grammcase": "number",
 		"text": "string"
 	  }
+	},
+	"tic_venue": {
+	  "attributes": {
+		"venue_id": "number",
+		"venue_name": "string",
+		"venue_type": "string",
+		"map_extent": "number",
+		"map_min_zoom": "number",
+		"map_max_zoom": "number",
+		"map_max_resolution": "number",
+		"tile_extent": "number",
+		"tile_size": "number",
+		"loc_id": "number",
+		"enable_tiles": "string",
+		"map_zoom_level": "number",
+		"have_background": "number",
+		"background_image": "string",
+		"site": "number",
+		"code": "string"
+	  }
 	}
   }
 export default {
