@@ -64,7 +64,7 @@ const find = async (objName, lang) => {
 };
 
 //# find by id function
-const findById = async (objName, id, lang) => {
+const findById = async (objName, lang, id) => {
   //const result = await db.query(`SELECT * FROM ${objName} WHERE id = ?`, [id]);
   const sqlRecenica = `SELECT a.*, coalesce(b.text, a.text) textx, b.lang  
                       FROM ${objName} a 
