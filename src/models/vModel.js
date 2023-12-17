@@ -1137,13 +1137,15 @@ const getCmnLoclinkV = async (objName, objId, lang) => {
 const getCmnLoclinkLLV = async (objName, objId, item, lang) => {
   const sqlRecenica =
     `select  l.id, l.site, l.loctp2, l.loc2, l.tp,
-            l.loctp1, t.code cloctp1, t.text nloctp1,
-            l.loc1, getValueById(l.loc1, 'cmn_locx_v', 'code', '${lang || 'en'}') cloc1, getValueById(l.loc1, 'cmn_locx_v', 'text', '${lang || 'en'}') nloc1,   		 
+            l.loctp1, t.code cloctp1, t.text nloctp1, coalesce(l.color, lx.color) color,
+            l.loc1, lx.code cloc1, lx.text nloc1,   		 
             l.begda, l.endda, l.val, l.hijerarhija, l.onoff
-    from    cmn_loclink l, cmn_loctpx_v t
+    from    cmn_loclink l, cmn_loctpx_v t, cmn_locx_v lx
     where 	l.loc2  = ${objId}
+    and l.loc1 = lx.id
     and t.code = (CASE WHEN '${item}' = '-1' then t.code else '${item}' end)
     and t.lang = '${lang || 'en'}'
+    and lx.lang = '${lang || 'en'}'
     and l.loctp1 = t.id
     `
   console.log(sqlRecenica, "***********************getCmnLoclinkLLV***********************")
