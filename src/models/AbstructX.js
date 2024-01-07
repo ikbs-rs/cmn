@@ -6,7 +6,7 @@ const saltRounds = 10;
 
 //# add function
 const add = async (sqlQuery1, sqlQuery2, sqlQuery3) => {
-  console.log(sqlQuery1, "****************", sqlQuery2, "****************");
+  console.log(sqlQuery1, "*********!!*******", sqlQuery2, "*********!!*******");
   try {
     await db.query("BEGIN");
     const result1 = await db.query(sqlQuery1);
@@ -23,7 +23,7 @@ const add = async (sqlQuery1, sqlQuery2, sqlQuery3) => {
       throw new Error("Drugi upit nije uspeo");
     }
     if (sqlQuery3) {
-      console.log(sqlQuery3, "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%add%%%%%%%%%%%%%%%%%sqlQuery3%%%%%%%%%%%%%%%%%%%")
+      console.log(sqlQuery3, "--------------------add--------------------sqlQuery3--------------------")
       const result3 = await db.query(sqlQuery3);
       const rowCount3 = result2.rowCount;
 
@@ -103,7 +103,7 @@ const update = async (sqlQuery, objName, objData, lang) => {
       const result2 = await db.query(`UPDATE ${objName}x set text = '${objData.text}'  WHERE tableid = ${objData.id} and lang = '${lang || 'en'}'`);
     }
     if (objName == 'cmn_loc') {
-      const result31 = await findById('cmn_loctp', objData.tp, lang)
+      const result31 = await findById('cmn_loctp', lang, objData.tp)
       if (result31.code === 'XSC') {
         const sqlQuery3 = `select count(*) from tic_venue  WHERE loc_id = ${objData.id}`
         const result3 = await db.query(sqlQuery3);

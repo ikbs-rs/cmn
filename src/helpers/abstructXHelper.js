@@ -15,10 +15,10 @@ const add = async (objName, objData, lang) => {
     let objName3 = ``
     let objData3 = {}
 
-    if (!objData1.id || objData1.id !== null) {
+    if (!objData1.id || objData1.id == null) {
       objData1.id = await uniqueId();
     }
-    if (objData1.hasOwnProperty('code') || obj.code === null || obj.code === "") {
+    if (!objData1.code || objData1.code == null || objData1.code === "") {
       objData1.code = objData1.id;
     }
 
@@ -39,7 +39,7 @@ const add = async (objName, objData, lang) => {
     let sqlQuery3 = null;
     console.log(objName, "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&objName&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
     if (objName === 'cmn_loc') {
-      const result31 = await getById('cmn_loctp', objData1.tp, lang)
+      const result31 = await getById('cmn_loctp', lang, objData1.tp)
       console.log(result31, "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&result31&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
       if (result31.code === 'XSC') {
         objName3 = 'tic_venue'

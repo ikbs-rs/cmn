@@ -116,6 +116,9 @@ const getListaById = async (objName, stm, item, objId, lang) => {
       case "cmn_loclinkll_v":
         var result = await vModel.getCmnLoclinkLLV(objName, objId, item, lang);
         break;
+        case "cmn_objpar_v":
+          var result = await vModel.getCmnObjparV(objName, objId, lang);
+          break;        
       default:
         console.error(`Pogresan naziv za view ${stm}`);
     }

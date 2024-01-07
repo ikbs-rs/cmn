@@ -289,6 +289,17 @@ const entitiesInfo =
 		"value": "string"
 	  }
 	},
+	"cmn_objpar": {
+	  "attributes": {
+		"id": "number",
+		"site": "number",
+		"obj": "number",
+		"par": "number",
+		"begda": "string",
+		"endda": "string",
+		"value": "string"
+	  }
+	},
 	"cmn_objatttp": {
 	  "attributes": {
 		"id": "number",
@@ -398,7 +409,8 @@ const entitiesInfo =
 		"idnum": "string",
 		"pdvnum": "string",
 		"begda": "string",
-		"endda": "string"
+		"endda": "string",
+		"docid": "string"
 	  }
 	},
 	"cmn_paraccount": {

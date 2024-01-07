@@ -1091,6 +1091,32 @@ const getCmnObjattsV = async (objName, objId, lang) => {
   }
 };
 
+//# find Item by id function
+const getCmnObjparV = async (objName, objId, lang) => {
+  const sqlRecenica = `
+  select  l.id, l.site, l.obj,  l.begda, l.endda,
+          l.par, p.cpar, p.npar,  p.lang, p.grammcase
+    from      cmn_objpar l,
+      (
+      select ot.id id, ot.code cpar, ot.text npar, ot.lang, ot.grammcase
+      from cmn_parx_v ot
+      where ot.lang = '${lang || 'en'}'
+      ) p
+    where l.par  = p.id
+    and l.obj = ${objId}
+    `
+console.log(sqlRecenica, "###########################################getCmnObjparV#########################################")
+  const result = await db.query(sqlRecenica);
+  const rows = result.rows;
+  if (Array.isArray(rows)) {
+    return rows;
+  } else {
+    throw new Error(
+      `Greška pri dohvatanju slogova iz baze - abs find: ${rows}`
+    );
+  }
+};
+
 const getCmnObjlinkV = async (objName, objId, lang) => {
   const sqlRecenica =
     `select  l.id, l.site, l.objtp2, l.obj2, 
@@ -1238,6 +1264,7 @@ export default {
   getCmnObjlinkV,
   getCmnLoclinkV,
   getCmnLoclinkLLV,
+  getCmnObjparV,
   getCmnLocByTxtV,
   getXscV,
   getXscDDV,
