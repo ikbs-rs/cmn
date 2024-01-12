@@ -604,7 +604,7 @@ const getObjTree = async (objName, lang) => {
   }
 };
 
-const getLocTreeOld = async (objName, lang) => {
+const getLocTree = async (objName, lang) => {
   const sqlRecenica =
     ` select tree
   from (
@@ -721,7 +721,7 @@ const getLocTreeOld = async (objName, lang) => {
     WHERE d3.level = 0) x `;
 
   let result = await db.query(sqlRecenica);
-  console.log(result.rows, "//////////////////*************************///////////////////////////**************/////////////////")
+  console.log(result, "////////////////***sqlRecenica****/////////////////", sqlRecenica)
   let rows = result.rows;
 
   if (Array.isArray(rows) && rows.length > 0) {
@@ -739,7 +739,7 @@ const getLocTreeOld = async (objName, lang) => {
   }
 };
 
-const getLocTree = async (objName, lang) => {
+const getLocTreeOld = async (objName, lang) => {
   const sqlRecenica = `
   select tree
   from (
@@ -939,7 +939,7 @@ const getLoclinkTree = async (objName, lang) => {
                     co.lang,
                     co.grammcase,
                     co."valid"
-                FROM cmn_locx_v co, 
+                FROM cmn_locx_v co
                 WHERE co.id = '1707106091126886400'::bigint::numeric
             ) b
         WHERE b.parentid IS NULL
@@ -1048,7 +1048,7 @@ const getLoclinkTree = async (objName, lang) => {
     WHERE d3.level = 0
   `;
   let result = await db.query(sqlRecenica);
-  console.log(result.rows, "//////////////////*************************///////////////////////////**************/////////////////")
+  console.log(result.rows, "/////////////////sqlRecenica////////////////", sqlRecenica)
   let rows = result.rows;
 
   if (Array.isArray(rows) && rows.length > 0) {

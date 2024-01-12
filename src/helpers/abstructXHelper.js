@@ -42,6 +42,8 @@ const add = async (objName, objData, lang) => {
       const result31 = await getById('cmn_loctp', lang, objData1.tp)
       console.log(result31, "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&result31&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
       if (result31.code === 'XSC') {
+        const map_extent = [0.0,-4000.0,6240.0,0.0]
+        const tile_extent = [0.0,-4000.0,6240.0,0.0]
         objName3 = 'tic_venue'
         objData3.venue_id = objData1.id;
         objData3.site = null
@@ -49,6 +51,11 @@ const add = async (objName, objData, lang) => {
         objData3.loc_id = objData1.id
         objData3.code = objData1.code
         objData3.venue_type = objData1.tp
+        // objData3.map_extent = map_extent.map(Number)
+        objData3.map_min_zoom = 1
+        objData3.map_max_zoom = 3
+        objData3.map_max_resolution = 1
+        // objData3.tile_extent = tile_extent.map(Number)
 
         sqlQuery3 = await abstructQuery.getInsertQuery(objName3, objData3);
 
