@@ -12,7 +12,7 @@ const getCmnLinkV = async (objName, lang) => {
   }
 };
 
-const getLista = async (objName, stm, objId, lang) => {
+const getLista = async (objName, stm, objId, id, lang) => {
   try {
     let result = {};
     switch (stm) {
@@ -34,11 +34,14 @@ const getLista = async (objName, stm, objId, lang) => {
       case "cmn_obj_v":
         result = await vModel.getObjV(objName, lang);
         break;
-        case "cmn_objll_v":
-          result = await vModel.getObjLLV(objName, objId, lang);
-          break;        
+      case "cmn_objll_v":
+        result = await vModel.getObjLLV(objName, objId, lang);
+        break;
       case "cmn_objsett_v":
         result = await vModel.getObjsettV(objName, objId, lang);
+        break;
+      case "cmn_objevent_v":
+        result = await vModel.getObjeventV(objName, objId, id, lang);
         break;
       case "cmn_obj_tp_v":
         result = await vModel.getObjTpV(objName, objId, lang);
@@ -116,9 +119,9 @@ const getListaById = async (objName, stm, item, objId, lang) => {
       case "cmn_loclinkll_v":
         var result = await vModel.getCmnLoclinkLLV(objName, objId, item, lang);
         break;
-        case "cmn_objpar_v":
-          var result = await vModel.getCmnObjparV(objName, objId, lang);
-          break;        
+      case "cmn_objpar_v":
+        var result = await vModel.getCmnObjparV(objName, objId, lang);
+        break;
       default:
         console.error(`Pogresan naziv za view ${stm}`);
     }

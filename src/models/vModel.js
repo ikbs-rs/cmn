@@ -121,7 +121,6 @@ const getLinkobjV = async (objName, objId, lang) => {
   }
 };
 
-
 const getObjsettV = async (objName, objId, lang) => {
   const sqlRecenica =
     `
@@ -132,6 +131,32 @@ const getObjsettV = async (objName, objId, lang) => {
   and 	aa.tp = b.id
   `
   console.log(sqlRecenica, "****************************/////////")
+  let result = await db.query(sqlRecenica);
+  let rows = result.rows;
+  if (Array.isArray(rows)) {
+    return rows;
+  } else {
+    throw new Error(
+      `Greška pri dohvatanju slogova iz baze - abs find: ${rows}`
+    );
+  }
+};
+
+const getObjeventV = async (objName, objId, id, lang) => {
+  const sqlRecenica =
+    `
+  select aa.*
+  from	cmn_objx_v aa, cmn_objtp b
+  where	b.code = '${objId}'     
+  and 	aa.lang = '${lang || 'en'}'
+  and 	aa.tp = b.id
+  and aa.id in (
+    select e.obj
+    from  tic_eventobj e
+    where e.event = '${id}' 
+  )
+  `
+  console.log(sqlRecenica, "******************1111**********/////////")
   let result = await db.query(sqlRecenica);
   let rows = result.rows;
   if (Array.isArray(rows)) {
@@ -1244,6 +1269,7 @@ export default {
   getObjV,
   getObjLLV,
   getObjsettV,
+  getObjeventV,
   getCmnObjByTxtV,
   getCmnParByTxtV,
   getParV,
