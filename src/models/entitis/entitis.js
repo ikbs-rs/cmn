@@ -507,7 +507,8 @@ const entitiesInfo =
 		"site": "number",
 		"code": "string",
 		"text": "string",
-		"valid": "number"
+		"valid": "number",
+		"xcode": "string"
 	  }
 	},
 	"cmn_partpx": {
