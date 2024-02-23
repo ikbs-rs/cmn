@@ -1235,18 +1235,17 @@ const getXscV = async (objName, lang) => {
   }
 };
 
-const getXscDDV = async (objName, objId, lang) => {
+const getXscDDV = async (objName, objId, id, lang) => {
   const sqlRecenica =
     `
       select l.id, l.site, l.code, l.text , l.valid, l.graftp, l.latlongs, l.radius, l.color, l.fillcolor, l.originfillcolor, l.rownum, l.grammcase, l.text textx,
             l.tp, getValueById(l.tp, 'cmn_loctpx_v', 'code', '${lang || 'en'}') ctp, getValueById(l.tp, 'cmn_loctpx_v', 'text', '${lang || 'en'}') ntp
-      from  cmn_locx_v l, cmn_loctp t, tic_event e, cmn_loclink ll
-      where l.lang = '${lang || 'en'}'
-      and t.code = 'XSCH'
-      and t.id = l.tp
+      from  tic_event e, cmn_locx_v l, cmn_loclink ll
+      where ll.loc2 = e.loc
+      and   l.id = ll.loc1 
+      and ( l.tp = CASE WHEN ${id} = -1 THEN l.tp  ELSE ${id}  END )      
+      and l.lang = '${lang || 'en'}'
       and e.id = ${objId}
-      and ll.loc2 = e.loc 
-      and ll.loc1 = l.id
       `
   console.log(sqlRecenica, "****************************/////////")
   //const [rows] = await db.query(sqlRecenic);

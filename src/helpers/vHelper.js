@@ -92,7 +92,7 @@ const getLista = async (objName, stm, objId, id, lang) => {
         result = await vModel.getXscV(objName, lang);
         break;
       case "cmn_xscdd_v":
-        result = await vModel.getXscDDV(objName, objId, lang);
+        result = await vModel.getXscDDV(objName, objId, id, lang);
         break;
       default:
         console.error("Pogresan naziv za view");
