@@ -84,6 +84,7 @@ router.use('/cmn/umparity', checkPermissions(), abstruct)
 
 router.use('/cmn/x/ccard', checkPermissions(), abstructX)
 router.use('/cmn/x/curr', checkPermissions(), abstructX)
+router.use('/cmn/x/doctp', checkPermissions(), abstructX)
 router.use('/cmn/x/inputtp', checkPermissions(), abstructX)
 router.use('/cmn/x/link', checkPermissions(), abstructX)
 router.use('/cmn/x/loc', checkPermissions(), abstructX)
