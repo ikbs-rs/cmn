@@ -43,6 +43,11 @@ router.use(async (req, res, next) => {
 
 // Moze da se svede na jedan ruter ali volim da vidim sta je sve implementirano!!!
 
+router.use((req, res, next) => { 
+  console.log("Dosao u ImdecRoute V ", req.path)
+  next();
+});
+
 router.use('/cmn/currrate', checkPermissions(), abstruct)
 router.use('/cmn/link', checkPermissions(), abstruct)
 router.use('/cmn/loc', checkPermissions(), abstruct)

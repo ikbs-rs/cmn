@@ -14,6 +14,7 @@ const getCmnLinkV = async (objName, lang) => {
 
 const getLista = async (objName, stm, objId, id, lang) => {
   try {
+    console.log("Dosao u Helper V ", stm)
     let result = {};
     switch (stm) {
       case "cmn_objatts_v":
@@ -37,11 +38,17 @@ const getLista = async (objName, stm, objId, id, lang) => {
       case "cmn_objll_v":
         result = await vModel.getObjLLV(objName, objId, lang);
         break;
+      case "cmn_objllid_v":
+        result = await vModel.getObjLLIdV(objName, objId, lang);
+        break;
       case "cmn_objsett_v":
         result = await vModel.getObjsettV(objName, objId, lang);
         break;
       case "cmn_objevent_v":
         result = await vModel.getObjeventV(objName, objId, id, lang);
+        break;
+      case "bzr_sablontp_v":
+        result = await vModel.getObjByCtpV(objName, objId, lang);
         break;
       case "cmn_obj_tp_v":
         result = await vModel.getObjTpV(objName, objId, lang);

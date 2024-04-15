@@ -168,6 +168,27 @@ const getObjeventV = async (objName, objId, id, lang) => {
   }
 };
 
+const getObjByCtpV = async (objName, objId, lang) => {
+  const sqlRecenica =
+    `
+  select aa.*
+  from	cmn_objx_v aa, cmn_objtp b
+  where	b.code = '${objId}'     
+  and 	aa.lang = '${lang || 'en'}'
+  and 	aa.tp = b.id
+  `
+  console.log(sqlRecenica, "******************1111**********/////////")
+  let result = await db.query(sqlRecenica);
+  let rows = result.rows;
+  if (Array.isArray(rows)) {
+    return rows;
+  } else {
+    throw new Error(
+      `Greška pri dohvatanju slogova iz baze - abs find: ${rows}`
+    );
+  }
+};
+
 const getObjV = async (objName, lang) => {
   const sqlRecenica =
     `select l.id, l.site, l.code, l.text , l.valid, l.lang, l.grammcase, l.text textx, l.color, l.icon,
@@ -193,6 +214,27 @@ const getObjLLV = async (objName, objId, lang) => {
       from	cmn_objx_v l, cmn_objtp t
       where l.lang = '${lang || 'en'}'
       and t.code = (CASE WHEN '${objId}' = '-1' then t.code else '${objId}' end)
+      and l.tp = t.id 
+      `
+  //const [rows] = await db.query(sqlRecenic);
+  let result = await db.query(sqlRecenica);
+  let rows = result.rows;
+  if (Array.isArray(rows)) {
+    return rows;
+  } else {
+    throw new Error(
+      `Greška pri dohvatanju slogova iz baze - abs find: ${rows}`
+    );
+  }
+};
+
+const getObjLLIdV = async (objName, objId, lang) => {
+  const sqlRecenica =
+    `select l.id, l.site, l.code, l.text , l.valid, l.lang, l.grammcase, l.text textx, l.color, l.icon,
+            l.tp, getValueById(l.tp, 'cmn_objtpx_v', 'code', '${lang || 'en'}') ctp, getValueById(l.tp, 'cmn_objtpx_v', 'text', '${lang || 'en'}') ntp
+      from	cmn_objx_v l, cmn_objtp t
+      where l.lang = '${lang || 'en'}'
+      and t.id = (CASE WHEN '${objId}' = '-1' then t.id else '${objId}' end)
       and l.tp = t.id 
       `
   //const [rows] = await db.query(sqlRecenic);
@@ -1267,8 +1309,10 @@ export default {
   getLocterrV,
   getObjV,
   getObjLLV,
+  getObjLLIdV,
   getObjsettV,
   getObjeventV,
+  getObjByCtpV,
   getCmnObjByTxtV,
   getCmnParByTxtV,
   getParV,
