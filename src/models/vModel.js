@@ -300,11 +300,35 @@ const getParV = async (objName, lang) => {
   const sqlRecenica =
     `select l.id, l.site, l.code, l.text, l.short, l.address, l.place, l.postcode, l.tel, l.activity,
             l.pib, l.idnum, l.pdvnum, l.begda, l.endda,
+            l.docid, l.country, l.email, l.countryid, l.countryid,
             l.lang, l.grammcase, l.text textx,
             l.tp, getValueById(l.tp, 'cmn_partpx_v', 'code', '${lang || 'en'}') ctp, getValueById(l.tp, 'cmn_partpx_v', 'text', '${lang || 'en'}') ntp
       from	cmn_parx_v l
       where l.lang = '${lang || 'en'}'`
+
+      console.log(sqlRecenica, "*************sqlRecenica************")
   //const [rows] = await db.query(sqlRecenic);
+  let result = await db.query(sqlRecenica);
+  let rows = result.rows;
+  if (Array.isArray(rows)) {
+    return rows;
+  } else {
+    throw new Error(
+      `Greška pri dohvatanju slogova iz baze - abs find: ${rows}`
+    );
+  }
+};
+
+const getTerrtpV = async (objId, lang) => {
+  const sqlRecenica =
+    `select l.id, l.site, l.code, l.text, l.postcode, l.begda, l.endda,
+            l.lang, l.grammcase, l.text textx,
+            l.tp, t.code ctp, t.text ntp
+      from	cmn_terrx_v l
+      join  cmn_terrtpx_v t on t.id = l.tp and t.code = '${objId}' and t.lang = '${lang || 'sr_cyr'}'
+      where l.lang = '${lang || 'sr_cyr'}'`
+  //const [rows] = await db.query(sqlRecenic);
+  console.log(sqlRecenica, "****************************/////////")
   let result = await db.query(sqlRecenica);
   let rows = result.rows;
   if (Array.isArray(rows)) {
@@ -1134,6 +1158,32 @@ const getLoclinkTree = async (objName, lang) => {
 };
 
 //# find Item by id function
+
+const getCmnLocattsV = async (objName, objId, lang) => {
+  const sqlRecenica =
+    `select  l.id, l.site, l.loc, l.locatt , l.begda, l.endda, l.text,
+      ot1.id1, ot1.code1, ot1.nlocatt1, ot1.valid1, ot1.lang1, ot1.grammcase1
+    from      cmn_locatts l,
+      (
+      select ot.id id1, ot.code code1, ot.text nlocatt1, ot.valid valid1, ot.lang lang1, ot.grammcase grammcase1
+      from cmn_locattx_v ot
+      where ot.lang = '${lang || 'en'}'
+      ) ot1
+    where l.locatt  = ot1.id1
+    and l.loc = ${objId}`
+
+    console.log(sqlRecenica, "#####################################")
+  const result = await db.query(sqlRecenica);
+  const rows = result.rows;
+  if (Array.isArray(rows)) {
+    return rows;
+  } else {
+    throw new Error(
+      `Greška pri dohvatanju slogova iz baze - abs find: ${rows}`
+    );
+  }
+};
+
 const getCmnObjattsV = async (objName, objId, lang) => {
   const sqlRecenica =
     `select  l.id, l.site, l.obj, l.cmn_objatt , l.begda, l.endda,
@@ -1337,4 +1387,6 @@ export default {
   getCmnLocByTxtV,
   getXscV,
   getXscDDV,
+  getCmnLocattsV,
+  getTerrtpV,
 };

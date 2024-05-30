@@ -14,9 +14,11 @@ const getCmnLinkV = async (objName, lang) => {
 
 const getLista = async (objName, stm, objId, id, lang) => {
   try {
-    console.log("Dosao u Helper V ", stm)
     let result = {};
     switch (stm) {
+      case "cmn_locatts_v":
+        result = await vModel.getCmnLocattsV(objName, objId, lang);
+        break;
       case "cmn_objatts_v":
         result = await vModel.getCmnObjattsV(objName, lang);
         break;
@@ -68,6 +70,9 @@ const getLista = async (objName, stm, objId, id, lang) => {
       case "cmn_loctree_json_v":
         result = await vModel.getLocTree(objName, lang);
         break;
+      case "cmn_terrtp_v":
+        result = await vModel.getTerrtpV(objId, lang);
+        break;
       case "cmn_terr_v":
         result = await vModel.getTerrV(objName, lang);
         break;
@@ -114,6 +119,7 @@ const getLista = async (objName, stm, objId, id, lang) => {
 const getListaById = async (objName, stm, item, objId, lang) => {
   try {
     switch (stm) {
+
       case "cmn_objatts_v":
         var result = await vModel.getCmnObjattsV(objName, objId, lang);
         break;

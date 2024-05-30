@@ -410,7 +410,11 @@ const entitiesInfo =
 		"pdvnum": "string",
 		"begda": "string",
 		"endda": "string",
-		"docid": "string"
+		"docid": "string",
+		"country": "string",
+		"email": "string",
+		"countryid": "number"
+
 	  }
 	},
 	"cmn_paraccount": {
