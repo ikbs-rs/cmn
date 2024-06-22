@@ -189,6 +189,26 @@ const getObjByCtpV = async (objName, objId, lang) => {
   }
 };
 
+const getCmnParByUserId = async (userId, lang) => {
+  const sqlRecenica =
+    `
+    select p.*
+    from cmn_parx_v p
+    join adm_paruser ap on ap.par = p.id and ap.usr = ${userId}   
+    where 	p.lang = '${lang || 'en'}'
+  `
+  console.log(sqlRecenica, "******************1111**********/////////")
+  let result = await db.query(sqlRecenica);
+  let rows = result.rows;
+  if (Array.isArray(rows)) {
+    return rows;
+  } else {
+    throw new Error(
+      `Greška pri dohvatanju slogova iz baze - abs find: ${rows}`
+    );
+  }
+};
+
 const getObjV = async (objName, lang) => {
   const sqlRecenica =
     `select l.id, l.site, l.code, l.text , l.valid, l.lang, l.grammcase, l.text textx, l.color, l.icon,
@@ -1389,4 +1409,5 @@ export default {
   getXscDDV,
   getCmnLocattsV,
   getTerrtpV,
+  getCmnParByUserId,
 };
