@@ -447,7 +447,8 @@ const entitiesInfo =
 		"att": "number",
 		"text": "string",
 		"begda": "string",
-		"endda": "string"
+		"endda": "string",
+		"zzcode": "string"
 	  }
 	},
 	"cmn_parattx": {
