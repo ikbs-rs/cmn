@@ -3,6 +3,7 @@ import { Snowflake as snowflake } from "node-snowflake";
 import { hostname } from "os";
 import { createHash } from "crypto";
 import dotenv from "dotenv";
+import db from "../db/db.js";
 
 dotenv.config();
 
@@ -29,6 +30,42 @@ export const uniqueId = async () => {
 
   return snowflake.nextId();
 };
+
+export const parId= async (tableName) => {
+    try {
+      // Pokrećemo transakciju
+      await db.query("BEGIN");
+  
+      // Prvo, čitamo trenutnu vrednost `broj` za datu `tabela`
+      const selectQuery = `SELECT broj FROM iis.zz_tabela WHERE tabela = $1 FOR UPDATE`;
+      const result = await db.query(selectQuery, [tableName]);
+  
+      if (result.rows.length === 0) {
+        throw new Error(`Table with name ${tableName} does not exist.`);
+      }
+  
+      // Uzimamo trenutnu vrednost `broj`
+      let currentValue = result.rows[0].broj;
+  
+      // Povećavamo vrednost za jedan
+      const newValue = Number(currentValue) + 1;
+  
+      // Ažuriramo vrednost u tabeli
+      const updateQuery = `UPDATE iis.zz_tabela SET broj = $1 WHERE tabela = $2`;
+      await db.query(updateQuery, [newValue, tableName]);
+  
+      // Potvrđujemo transakciju
+      await db.query("COMMIT");
+  
+      // Vraćamo novu vrednost `broj`
+      return newValue;
+    } catch (error) {
+      // U slučaju greške, otkazujemo transakciju
+      await db.query("ROLLBACK");
+      throw error;
+    }
+  };
+  
 
 // Formira hijerarhijsku strukturu menija DFS, BFS ide po sirini i moze imati problema sa velikom kolicinom podataka
 //

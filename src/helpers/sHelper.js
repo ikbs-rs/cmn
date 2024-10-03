@@ -66,8 +66,11 @@ const postFunction = async (
       case "tic_grpeventloc_s":
         result = await sModel.copyGrpEventloc(objId1, par1, par2, par3, begda, endda, requestBody);
         break;
+      case "tic_venue_s":
+        result = await sModel.handleTicVenue(objId1, par1, requestBody);
+        break;
       case "cmn_grploclink_s":
-        result = await sModel.copyGrpLoclocl(objId1, objId2, par1, begda, endda, requestBody);
+        result = await sModel.copyGrpLoclocl(objId1, objId2, par1, par2, begda, endda, requestBody);
         break;
       default:
         console.error("sHelper: Pogresan naziv za view-a - " + stm);

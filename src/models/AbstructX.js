@@ -102,7 +102,7 @@ const update = async (sqlQuery, objName, objData, lang) => {
     } else {
       const result2 = await db.query(`UPDATE ${objName}x set text = '${objData.text}'  WHERE tableid = ${objData.id} and lang = '${lang || 'en'}'`);
     }
-    if (objName == 'cmn_loc') {
+    if (objName == 'cmn_locxxx') {
       const result31 = await findById('cmn_loctp', lang, objData.tp)
       if (result31.code === 'XSC') {
         const sqlQuery3 = `select count(*) from tic_venue  WHERE loc_id = ${objData.id}`

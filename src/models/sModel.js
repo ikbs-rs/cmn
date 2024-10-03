@@ -60,18 +60,35 @@ const copyGrpEventloc = async (eventId, par1, loc, tploc, begda, endda, requestB
 };
 
 
-const copyGrpLoclocl = async (objId1, objId2, par1, begda, endda, requestBody) => {
+const copyGrpLoclocl = async (objId1, objId2, par1, par2, begda, endda, requestBody) => {
 
   try {
     let ok = false;
     let uId = '11111111111111111111'
     await db.query("BEGIN");
     if (par1 == 'true') {
-      await db.query(
-        `
-      delete from cmn_loclink
-      where loc2 = $1
-    `, [objId1]);
+      if (par2 == 'null') {
+        await db.query(
+          `
+          delete from cmn_loclink
+          where loc2 = $1
+          and loc1 in (
+            select t.id
+            from  cmn_loc t
+          )
+        `, [objId1]);
+      } else {
+        await db.query(
+          `
+          delete from cmn_loclink
+          where loc2 = $1
+          and loc1 in (
+            select t.id
+            from  cmn_loc t
+            where t.tp = $2
+          )
+        `, [objId1, par2]);
+      }
     }
 
     const parsedBody = JSON.parse(requestBody.jsonObj);
@@ -104,9 +121,53 @@ const copyGrpLoclocl = async (objId1, objId2, par1, begda, endda, requestBody) =
   }
 };
 /****************************************************************************** */
+const handleTicVenue = async (objId1, par1, requestBody) => {
+
+  try {
+    let ok = false;
+    let sqlQuery = ''
+    const parsedBody = JSON.parse(requestBody.jsonObj);
+
+
+    await db.query("BEGIN");
+    if (par1 === 'CREATE') {
+      parsedBody.venue_id = await uniqueId();
+      sqlQuery = `
+      insert into tic_venue (venue_id,  venue_name, code, venue_type, map_min_zoom, map_max_zoom, map_max_resolution) 
+      values (${parsedBody.venue_id},  '${parsedBody.venue_name}', '${parsedBody.code}', '${parsedBody.venue_type}', 1, 5, 5)
+      `
+    } else if (par1 === 'UPDATE') {
+      sqlQuery = `
+      UPDATE tic_venue set 
+            venue_name = '${parsedBody.venue_name}',  
+            code = '${parsedBody.code}',  
+            venue_type = '${parsedBody.venue_type}'
+      WHERE venue_id = ${parsedBody.venue_id}
+      `
+    } else if (par1 === 'DELETE') {
+      sqlQuery = `
+      delete from tic_venue
+      where venue_id = ${parsedBody.venue_id}
+      `
+    }
+    console.log(requestBody, "H-00-HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH", sqlQuery)
+    const result = await db.query(sqlQuery);
+    await db.query("COMMIT");
+    ok = true;
+
+    return parsedBody;
+  } catch (error) {
+    if (db) {
+      await db.query("ROLLBACK"); // Rollback the transaction in case of an error
+    }
+    throw error;
+  }
+};
+/****************************************************************************** */
 
 
 export default {
   copyGrpEventloc,
   copyGrpLoclocl,
+  handleTicVenue,
 };

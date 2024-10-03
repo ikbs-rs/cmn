@@ -16,6 +16,9 @@ const getLista = async (objName, stm, objId, id, lang) => {
   try {
     let result = {};
     switch (stm) {
+      case "cmn_locvenue_l":
+        result = await vModel.getCmnLocvenueV(objName, objId, lang);
+        break;
       case "cmn_locatts_v":
         result = await vModel.getCmnLocattsV(objName, objId, lang);
         break;
@@ -27,6 +30,9 @@ const getLista = async (objName, stm, objId, id, lang) => {
         break;
       case "cmn_locll_v":
         result = await vModel.getLocLLV(objName, objId, lang);
+        break;
+      case "cmn_locctp_v":
+        result = await vModel.getCmnLocByTxtV(objName, stm, id, objId, lang);
         break;
       case "cmn_locobj_v":
         result = await vModel.getLinkobjV(objName, objId, lang);
@@ -50,6 +56,9 @@ const getLista = async (objName, stm, objId, id, lang) => {
         result = await vModel.getObjeventV(objName, objId, id, lang);
         break;
       case "bzr_sablontp_v":
+        result = await vModel.getObjByCtpV(objName, objId, lang);
+        break;
+      case "cmn_objtpcode_v":
         result = await vModel.getObjByCtpV(objName, objId, lang);
         break;
       case "cmn_obj_tp_v":
@@ -103,16 +112,24 @@ const getLista = async (objName, stm, objId, id, lang) => {
       case "cmn_xsc_v":
         result = await vModel.getXscV(objName, lang);
         break;
+      case "cmn_locxv_v":
+        result = await vModel.getLocXvV(objName, lang);
+        break;
+      case "cmn_xscid_v":
+        result = await vModel.getXscIdV(objId, lang);
+        break;
       case "cmn_xscdd_v":
         result = await vModel.getXscDDV(objName, objId, id, lang);
         break;
       case "cmn_getparbyuserid_v":
         result = await vModel.getCmnParByUserId(objId, lang);
         break;
-        case "cmn_objbytpcode_v":
-          result = await vModel.getCmnObjByTxtV(objName, stm, objId, id, lang);
-          break;        
-        
+      case "cmn_objbytpcode_v":
+        result = await vModel.getCmnObjByTxtV(objName, stm, objId, id, lang);
+        break;
+      case "cmn_paraddressall_v":
+        result = await vModel.getCmnParAddressall(objId, lang);
+        break;
       default:
         console.error("Pogresan naziv za view");
     }

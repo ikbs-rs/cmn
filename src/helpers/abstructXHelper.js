@@ -1,5 +1,5 @@
 import abstractModel from "../models/AbstructX.js";
-import { uniqueId } from "../middleware/utility.js";
+import { uniqueId, parId } from "../middleware/utility.js";
 import abstructQuery from "../middleware/model/abstructQuery.js";
 import { getToken } from "../security/jwt/tokenJWT.js";
 import bcrypt from "bcryptjs";
@@ -15,11 +15,30 @@ const add = async (objName, objData, lang) => {
     let objName3 = ``
     let objData3 = {}
 
+    if (objName == "cmn_par") {
+      if (!objData.code || objData.code !== null) {
+        const _broj = await parId('cmn_par');
+        objData1.code = `tkl_${_broj}`
+      }
+    }
+    // if (objName == "cmn_obj") {
+    //   if (!objData.code || objData.code !== null) {
+    //     objData1.code = await parId('cmn_obj');
+    //   }
+    // }    
+    if (objName == "cmn_loc") {
+      if (!objData.code || objData.code !== null) {
+        objData1.code = await parId('cmn_loc');
+      }
+    }     
     if (!objData1.id || objData1.id == null) {
       objData1.id = await uniqueId();
     }
     if (!objData1.code || objData1.code == null || objData1.code === "") {
       objData1.code = objData1.id;
+    }
+    if (!objData1.grp || objData1.grp == null || objData1.grp === "") {
+      objData1.grp = objData1.id;
     }
 
     objData2.id = await uniqueId();
@@ -38,12 +57,12 @@ const add = async (objName, objData, lang) => {
     const sqlQuery2 = await abstructQuery.getInsertQuery(objName2, objData2);
     let sqlQuery3 = null;
     console.log(objName, "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&objName&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
-    if (objName === 'cmn_loc') {
+    if (objName === 'cmn_locxxxx') {
       const result31 = await getById('cmn_loctp', lang, objData1.tp)
       console.log(result31, "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&result31&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
       if (result31.code === 'XSC') {
-        const map_extent = [0.0,-4000.0,6240.0,0.0]
-        const tile_extent = [0.0,-4000.0,6240.0,0.0]
+        const map_extent = [0.0, -4000.0, 6240.0, 0.0]
+        const tile_extent = [0.0, -4000.0, 6240.0, 0.0]
         objName3 = 'tic_venue'
         objData3.venue_id = objData1.id;
         objData3.site = null
@@ -62,8 +81,11 @@ const add = async (objName, objData, lang) => {
       }
     }
     const result = await abstractModel.add(sqlQuery1, sqlQuery2, sqlQuery3);
-
-    return objData1.id; //result;
+    if (objName == "cmn_par" || objName == "cmn_loc" ) {
+      return objData1; 
+    } else {
+      return objData1.id;
+    }
   } catch (err) {
     console.log(err);
     throw err;

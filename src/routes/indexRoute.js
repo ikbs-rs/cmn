@@ -51,7 +51,10 @@ router.use((req, res, next) => {
 router.use('/cmn/currrate', checkPermissions(), abstruct)
 router.use('/cmn/link', checkPermissions(), abstruct)
 router.use('/cmn/loc', checkPermissions(), abstruct)
+router.use('/cmn/locvenue', checkPermissions(), abstruct)
 router.use('/cmn/locatt', checkPermissions(), abstruct)
+router.use('/tic/venuetp', checkPermissions(), abstruct)
+router.use('/tic/venue', checkPermissions(), abstruct)
 router.use('/cmn/locatts', checkPermissions(), abstruct)
 router.use('/cmn/loclink', checkPermissions(), abstruct)
 router.use('/cmn/loclinktp', checkPermissions(), abstruct)
@@ -109,6 +112,7 @@ router.use('/cmn/x/terratt', checkPermissions(), abstructX)
 router.use('/cmn/x/terrtp', checkPermissions(), abstructX)
 router.use('/cmn/x/tgp', checkPermissions(), abstructX)
 router.use('/cmn/x/um', checkPermissions(), abstructX)
+
 
 //router.use('/adm/services', servicesRoute)
 

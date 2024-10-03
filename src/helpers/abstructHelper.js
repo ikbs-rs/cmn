@@ -1,5 +1,5 @@
 import abstractModel from "../models/Abstruct.js";
-import { uniqueId } from "../middleware/utility.js";
+import { uniqueId, parId } from "../middleware/utility.js";
 import abstructQuery from "../middleware/model/abstructQuery.js";
 import { getToken } from "../security/jwt/tokenJWT.js";
 import bcrypt from "bcryptjs";
@@ -7,10 +7,16 @@ import bcrypt from "bcryptjs";
 const saltRounds = 10
 
 const add = async (objName, objData) => {
+  console.log(objName, "HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH", objData.id)
   try {
-
+    if (objName == "cmn_par") {
+      if (!objData.code || objData.code !== null) {
+        const _broj = await parId();
+        objData.code = `tkl_${_broj}`
+      }
+    }
     if (!objData.id || objData.id !== null) {
-        objData.id = await uniqueId();
+      objData.id = await uniqueId();
     }
     // Mozda mi ovo ne treba jer dolazi sa fronta !!!
     if (objName === "adm_user") {
