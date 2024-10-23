@@ -27,7 +27,7 @@ const add = async (objName, objData, lang) => {
     //   }
     // }    
     if (objName == "cmn_loc") {
-      if (!objData.code || objData.code !== null) {
+      if (!objData.code || objData.code == null) {
         objData1.code = await parId('cmn_loc');
       }
     }     

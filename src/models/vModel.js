@@ -147,15 +147,10 @@ const getObjeventV = async (objName, objId, id, lang) => {
   const sqlRecenica =
     `
   select aa.*
-  from	cmn_objx_v aa, cmn_objtp b
-  where	b.code = '${objId}'     
-  and 	aa.lang = '${lang || 'en'}'
-  and 	aa.tp = b.id
-  and aa.id in (
-    select e.obj
-    from  tic_eventobj e
-    where e.event = '${id}' 
-  )
+  from	cmn_objx_v aa
+  JOIN 	cmn_objtp b ON aa.tp = b.id AND b.code = '${objId}'
+  JOIN 	tic_eventobj e ON e.obj = aa.id AND	e.event = '${id}'
+  WHERE	aa.lang = '${lang || 'en'}'
   `
   console.log(sqlRecenica, "******************1111**********/////////")
   let result = await db.query(sqlRecenica);

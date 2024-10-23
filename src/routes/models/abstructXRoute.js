@@ -6,6 +6,7 @@ import { checkPermissions } from "../../security/interceptors.js";
 const router = express.Router();
 
 router.use("/", (req, res, next) => {
+  console.log("Handling abstract controller routes 00");
   const urlParts = req.url.split("/");
   // const slParam = req.query.sl;
   req.objName2 = urlParts[1];
@@ -19,6 +20,7 @@ router.use("/", (req, res, next) => {
     if (req.path.startsWith("/_v")) {
       router.use("/_v", vRoute);
     } else {
+      console.log("Handling abstract controller routes");
       router.get("/", abstructController.getAll);
       router.get("/:id", abstructController.getById);
       router.post("/", checkPermissions("C"), abstructController.add);

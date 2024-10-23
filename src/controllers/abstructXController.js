@@ -31,6 +31,7 @@ const getByStext = async (req, res) => {
 
 const add = async (req, res) => {
   try {
+    console.log(req.body, "HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH")
     const items = await abstructHelper.add(req.objName, req.body, req.query.sl||'en');
     res.status(201).json({ message: `Stavka ${req.objName} je kreirana`, items });
   } catch (err) {
@@ -76,6 +77,7 @@ const getItem = async (req, res) => {
 
 const getIdByItem = async (req, res) => {
   try {
+    console.log("DDDDDDDDDDDDDDDDD", new Date().toLocaleTimeString('sr-RS', { hour12: false, timeZone: 'UTC' }) + `:${new Date().getMilliseconds()} milisekunde`);
     const item = await abstructHelper.getIdByItem(req.objName, req.query.sl||'en', req.objItem, req.params.value);
     res.status(200).json({item});
   } catch (err) {

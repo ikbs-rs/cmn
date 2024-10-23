@@ -173,6 +173,7 @@ const findItem = async (objName, lang, item, id) => {
 
 //find id by Item function
 const findIdbyItem = async (objName, lang, item, itemValue) => {
+  console.log(itemValue, "*******************findIdbyItem.itemValue **************************")
   const attributeType = entities.entitiesInfo[objName].attributes[item];
   const value = attributeType === "string" ? `'${itemValue}'` : itemValue;
   let sqlString = `SELECT id FROM ${objName} WHERE ${item} = ${value}`;
@@ -184,7 +185,7 @@ const findIdbyItem = async (objName, lang, item, itemValue) => {
                   and b.lang = '${lang || 'en'}' 
                   and b.text = ${value}`;
   }
-  console.log(sqlString, "*******************findIdbyItem**************************")
+  // console.log(sqlString, "*******************findIdbyItem**************************")
   const { rows } = await db.query(sqlString);
   return rows[0];
 };

@@ -4,42 +4,62 @@ import jwtConfig from "../config/jwtConfig.js";
 import roll from "./guards/roll.js";
 //import https from 'https';
 
-// funkcija za proveru ispravnosti JWT tokena za postojeci modul CMD.
 export const checkJwt = async (req, res, next) => {
   try {
     const jwtServer = process.env.JWT_URL;
     const token = req.headers.authorization?.replace("Bearer ", "");
-    //const agent = new https.Agent({ rejectUnauthorized: false });
+
     if (!jwtServer) {
       throw new Error(
         "Adresa udaljenog servera nije definisana u .env datoteci."
       );
     } else {
-      if (jwtServer === "LOCAL") {
-        console.log("CMN inteceptors 18!!");
+      if (jwtServer === "LOCAL"||1==1) {
+        // console.log(`Headeri:`, {
+        //     Authorization: `Bearer ${token}`
+        //   });
+        console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", new Date().toLocaleTimeString('sr-RS', { hour12: false, timeZone: 'UTC' }) + `:${new Date().getMilliseconds()} milisekunde`);
         jwt.verify(token, jwtConfig.secret, (err, decoded) => {
-          if (err) return res.status(401).json({ error: "Token invalid" });
+          if (err) {
+            console.log("JWT lokalna verifikacija nije uspela: ", err.message);
+            return res.status(401).json({ error: "Token invalid" });
+          }
+          console.log("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC", new Date().toLocaleTimeString('sr-RS', { hour12: false, timeZone: 'UTC' }) + `:${new Date().getMilliseconds()} milisekunde`);
+          // console.log("JWT lokalno verifikovan, decoded: ", decoded);
           req.userId = decoded.userId;
           next();
         });
       } else {
-        console.log("CMN inteceptors 27!!");
+        // console.log("CMN inteceptors 27!!");
         const checkJwtUrl = `${jwtServer}/checkJwt`;
-        const response = await axios.post(`${checkJwtUrl}`, {}, {
-          headers: { Authorization: `Bearer ${token}` },
-          timeout: 5000,  // vreme za koje se očekuje odgovor od udaljenog servera (u milisekundama)
-          family: 4
-        });
-        // provera statusa odgovora
-        console.log("CMN inteceptors 35!!", response.data);
-        if (response.status == 200 && response.data.success) {
-          // ako je JWT token ispravan, prelazimo na sledeći middleware
-          req.userId = response.data.userId
-          req.username = response.data.username
+
+        // Log pre nego što se zahtev pošalje
+        // console.log(`Šalje se zahtev ka JWT serveru: ${checkJwtUrl}`);
+        // console.log(`Headeri:`, {
+        //   Authorization: `Bearer ${token}`
+        // });
+        console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", new Date().toLocaleTimeString('sr-RS', { hour12: false, timeZone: 'UTC' }) + `:${new Date().getMilliseconds()} milisekunde`);
+        const response = await axios.post(
+          `${checkJwtUrl}`,
+          {}, 
+          {
+            headers: { Authorization: `Bearer ${token}` },
+            timeout: 10000, 
+            family: 4,
+          }
+        );
+        console.log("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", new Date().toLocaleTimeString('sr-RS', { hour12: false, timeZone: 'UTC' }) + `:${new Date().getMilliseconds()} milisekunde`);
+
+        // Log nakon što se zahtev pošalje
+        console.log("Odgovor primljen od JWT servera: ", response.data);
+
+        if (response.status === 200 && response.data.success) {
+          console.log("JWT token uspešno verifikovan na udaljenom serveru.");
+          req.userId = response.data.userId;
+          req.username = response.data.username;
           next();
         } else {
-          console.log("01------------------checkJwtUrl-------------NO---")
-          // ako nije ispravan, vraćamo poruku o grešci
+          console.log("JWT verifikacija nije uspela na udaljenom serveru.");
           return res
             .status(401)
             .json({ message: "Niste autorizovani za pristup ovom resursu." });
@@ -47,14 +67,17 @@ export const checkJwt = async (req, res, next) => {
       }
     }
   } catch (error) {
-    console.log("02------------------checkJwtUrl-------------ERROR---", error)
-    // u slučaju greške, vraćamo objekat sa informacijama o grešci
+    // Dodat log za slučaj greške
+    console.log("Greška prilikom slanja zahteva ka JWT serveru:", error.message);
+    console.log("Detalji greške:", error.response?.data || {});
+
     return res.status(error.response?.status || 500).json({
       message: error.message || "Internal Server Error",
       data: error.response?.data || {},
     });
   }
 };
+
 
 // Middleware funkcija za proveru prava, sa default parametrima
 export const checkPermissions = (par1 = "1", par2 = "1") => {

@@ -6,7 +6,7 @@ import { checkJwt, checkPermissions, checkPermissionsEx } from '../security/inte
 
 const router = express.Router();
 
-router.use(checkJwt); // provera JWT tokena na svakom zahtevu
+// router.use(checkJwt); 
 router.use(express.json())
 
 
@@ -60,7 +60,7 @@ router.use('/cmn/loclink', checkPermissions(), abstruct)
 router.use('/cmn/loclinktp', checkPermissions(), abstruct)
 router.use('/cmn/locobj', checkPermissions(), abstruct)
 router.use('/cmn/loctp', checkPermissions(), abstruct)
-router.use('/cmn/menu', checkPermissions(), abstruct)
+router.use('/cmn/menu',  abstruct)
 router.use('/cmn/module', checkPermissions(), abstruct)
 
 router.use('/cmn/objatt', checkPermissions(), abstruct)
@@ -95,12 +95,12 @@ router.use('/cmn/x/curr', checkPermissions(), abstructX)
 router.use('/cmn/x/doctp', checkPermissions(), abstructX)
 router.use('/cmn/x/inputtp', checkPermissions(), abstructX)
 router.use('/cmn/x/link', checkPermissions(), abstructX)
-router.use('/cmn/x/loc', checkPermissions(), abstructX)
+router.use('/cmn/x/loc',  abstructX)
 router.use('/cmn/x/locatt', checkPermissions(), abstructX)
-router.use('/cmn/x/loctp', checkPermissions(), abstructX)
-router.use('/cmn/x/obj', checkPermissions(), abstructX)
-router.use('/cmn/x/objtp', checkPermissions(), abstructX)
-router.use('/cmn/x/objatt', checkPermissions(), abstructX)
+router.use('/cmn/x/loctp', abstructX)
+router.use('/cmn/x/obj',  abstructX)
+router.use('/cmn/x/objtp',  abstructX)
+router.use('/cmn/x/objatt',  abstructX)
 router.use('/cmn/x/objatttp', checkPermissions(), abstructX)
 router.use('/cmn/x/par', checkPermissions(), abstructX)
 router.use('/cmn/x/paratt', checkPermissions(), abstructX)
