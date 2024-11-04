@@ -208,7 +208,7 @@ const getCmnParByUserId = async (userId, lang) => {
 const getCmnParAddressall = async (objId, lang) => {
   const sqlRecenica =
     `
-    select p.id, p.id par, p.address ||' '|| p.place||' '|| p.postcode||' '|| t.text adresa, '0' sort
+    select p.id, p.id par, p.address ||' '||coalesce( p.place, '')||' '|| coalesce(p.postcode, '')||' '|| coalesce(t.text, '') adresa, '0' sort
     from cmn_par p
     left join cmn_terrx_v t on t.id = p.countryid and t.lang = '${lang || 'en'}'
     where p.id = ${objId}

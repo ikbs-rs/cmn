@@ -29,17 +29,17 @@ router.use("/", (req, res, next) => {
   next();
 });
 
-router.use(async (req, res, next) => {
-  if (req.path.startsWith("/adm/services/sign")) {
-    return next();
-  }
-  try {  
-    await  checkJwt(req, res, next);
-  } catch (error) {
-    console.error("Greška prilikom izvršavanja checkJwt:", error);
-    res.status(401).json({ error: "Unauthorized" });
-  }  
-});
+// router.use(async (req, res, next) => {
+//   if (req.path.startsWith("/adm/services/sign")) {
+//     return next();
+//   }
+//   try {  
+//     await  checkJwt(req, res, next);
+//   } catch (error) {
+//     console.error("Greška prilikom izvršavanja checkJwt:", error);
+//     res.status(401).json({ error: "Unauthorized" });
+//   }  
+// });
 
 // Moze da se svede na jedan ruter ali volim da vidim sta je sve implementirano!!!
 
