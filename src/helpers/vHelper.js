@@ -67,6 +67,9 @@ const getLista = async (objName, stm, objId, id, lang) => {
       case "cmn_par_v":
         result = await vModel.getParV(objName, lang);
         break;
+      case "cmn_cpar_v":
+        result = await vModel.getCparV(objName, lang);
+        break;
       case "cmn_paratts_v":
         result = await vModel.getParattsV(objName, objId, lang);
         break;

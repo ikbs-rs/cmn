@@ -439,6 +439,31 @@ const entitiesInfo =
 			"birthday": "string"
 		}
 	},
+	"cmn_cpar": {
+		"attributes": {
+			"id": "number",
+			"site": "number",
+			"code": "string",
+			"tp": "number",
+			"text": "string",
+			"short": "string",
+			"address": "string",
+			"place": "string",
+			"postcode": "string",
+			"tel": "string",
+			"activity": "string",
+			"pib": "string",
+			"idnum": "string",
+			"pdvnum": "string",
+			"begda": "string",
+			"endda": "string",
+			"docid": "string",
+			"country": "string",
+			"email": "string",
+			"countryid": "number",
+			"birthday": "string"
+		}
+	},
 	"cmn_paraccount": {
 		"attributes": {
 			"id": "number",
@@ -538,6 +563,16 @@ const entitiesInfo =
 			"xcode": "string"
 		}
 	},
+	"cmn_cpartp": {
+		"attributes": {
+			"id": "number",
+			"site": "number",
+			"code": "string",
+			"text": "string",
+			"valid": "number",
+			"xcode": "string"
+		}
+	},
 	"cmn_partpx": {
 		"attributes": {
 			"id": "number",
@@ -548,7 +583,27 @@ const entitiesInfo =
 			"text": "string"
 		}
 	},
+	"cmn_cpartpx": {
+		"attributes": {
+			"id": "number",
+			"site": "number",
+			"tableid": "number",
+			"lang": "string",
+			"grammcase": "number",
+			"text": "string"
+		}
+	},
 	"cmn_parx": {
+		"attributes": {
+			"id": "number",
+			"site": "number",
+			"tableid": "number",
+			"lang": "string",
+			"grammcase": "number",
+			"text": "string"
+		}
+	},
+	"cmn_cparx": {
 		"attributes": {
 			"id": "number",
 			"site": "number",

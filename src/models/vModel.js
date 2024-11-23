@@ -43,7 +43,7 @@ const getLocV = async (objName, lang) => {
             l.tp, getValueById(l.tp, 'cmn_loctpx_v', 'code', '${lang || 'en'}') ctp, getValueById(l.tp, 'cmn_loctpx_v', 'text', '${lang || 'en'}') ntp
       from	cmn_locx_v l
       where l.lang = '${lang || 'en'}'`
-  console.log(sqlRecenica, "****************************/////////")
+  // console.log(sqlRecenica, "****************************/////////")
   //const [rows] = await db.query(sqlRecenic);
   let result = await db.query(sqlRecenica);
   let rows = result.rows;
@@ -67,7 +67,7 @@ const getLocLLV = async (objName, objId, lang) => {
       left join cmn_locx_v l1 on l1.id = l.grp and l1.lang = '${lang || 'en'}'
       where l.lang = '${lang || 'en'}'
       `
-  console.log(sqlRecenica, "*****************getLocLLV***********/////////")
+  // console.log(sqlRecenica, "*****************getLocLLV***********/////////")
   //const [rows] = await db.query(sqlRecenic);
   let result = await db.query(sqlRecenica);
   let rows = result.rows;
@@ -89,7 +89,7 @@ const getCmnLocByTxtV = async (objName, stm, item, objId, lang) => {
       and l.tp = t.id 
       and t.lang = '${lang || 'en'}'
       and   ${item} = '${objId}'`
-  console.log(sqlRecenica, "****************************/////////")
+  // console.log(sqlRecenica, "****************************/////////")
   //const [rows] = await db.query(sqlRecenic);
   let result = await db.query(sqlRecenica);
   let rows = result.rows;
@@ -110,7 +110,7 @@ const getLinkobjV = async (objName, objId, lang) => {
   where	aa.obj = ${objId}     
   and 	b.lang = '${lang || 'en'}'
   and 	aa.loc = b.id`
-  console.log(sqlRecenica, "****************************/////////")
+  // console.log(sqlRecenica, "****************************/////////")
   let result = await db.query(sqlRecenica);
   let rows = result.rows;
   if (Array.isArray(rows)) {
@@ -131,7 +131,7 @@ const getObjsettV = async (objName, objId, lang) => {
   and 	aa.lang = '${lang || 'en'}'
   and 	aa.tp = b.id
   `
-  console.log(sqlRecenica, "****************************/////////")
+  // console.log(sqlRecenica, "****************************/////////")
   let result = await db.query(sqlRecenica);
   let rows = result.rows;
   if (Array.isArray(rows)) {
@@ -152,7 +152,7 @@ const getObjeventV = async (objName, objId, id, lang) => {
   JOIN 	tic_eventobj e ON e.obj = aa.id AND	e.event = '${id}'
   WHERE	aa.lang = '${lang || 'en'}'
   `
-  console.log(sqlRecenica, "******************1111**********/////////")
+  // console.log(sqlRecenica, "******************1111**********/////////")
   let result = await db.query(sqlRecenica);
   let rows = result.rows;
   if (Array.isArray(rows)) {
@@ -173,7 +173,7 @@ const getObjByCtpV = async (objName, objId, lang) => {
   and 	aa.lang = '${lang || 'en'}'
   and 	aa.tp = b.id
   `
-  console.log(sqlRecenica, "******************1111**********/////////")
+  // console.log(sqlRecenica, "******************1111**********/////////")
   let result = await db.query(sqlRecenica);
   let rows = result.rows;
   if (Array.isArray(rows)) {
@@ -193,7 +193,7 @@ const getCmnParByUserId = async (userId, lang) => {
     join adm_paruser ap on ap.par = p.id and ap.usr = ${userId}   
     where 	p.lang = '${lang || 'en'}'
   `
-  console.log(sqlRecenica, "******************1111**********/////////")
+  // console.log(sqlRecenica, "******************1111**********/////////")
   let result = await db.query(sqlRecenica);
   let rows = result.rows;
   if (Array.isArray(rows)) {
@@ -219,7 +219,7 @@ const getCmnParAddressall = async (objId, lang) => {
     where p.par = ${objId}
     order by 2, 3 desc  
   `
-  console.log(sqlRecenica, "******************1111**********/////////")
+  // console.log(sqlRecenica, "******************1111**********/////////")
   let result = await db.query(sqlRecenica);
   let rows = result.rows;
   if (Array.isArray(rows)) {
@@ -301,7 +301,7 @@ const getCmnObjByTxtV = async (objName, stm, item, objId, lang) => {
       and   t.id = l.tp
       and   l.lang = '${lang || 'en'}'
       `
-  console.log(sqlRecenica, "*************sqlRecenica************")
+  // console.log(sqlRecenica, "*************sqlRecenica************")
   //const [rows] = await db.query(sqlRecenic);
   let result = await db.query(sqlRecenica);
   let rows = result.rows;
@@ -325,7 +325,7 @@ const getCmnParByTxtV = async (objName, stm, item, objId, lang) => {
       and   t.id = l.tp
       and   l.lang = '${lang || 'en'}'
       `
-  console.log(sqlRecenica, "*************sqlRecenica************")
+  // console.log(sqlRecenica, "*************sqlRecenica************")
   //const [rows] = await db.query(sqlRecenic);
   let result = await db.query(sqlRecenica);
   let rows = result.rows;
@@ -348,7 +348,30 @@ const getParV = async (objName, lang) => {
       from	cmn_parx_v l
       where l.lang = '${lang || 'en'}'`
 
-      console.log(sqlRecenica, "*************sqlRecenica************")
+      // console.log(sqlRecenica, "*************sqlRecenica************")
+  //const [rows] = await db.query(sqlRecenic);
+  let result = await db.query(sqlRecenica);
+  let rows = result.rows;
+  if (Array.isArray(rows)) {
+    return rows;
+  } else {
+    throw new Error(
+      `Greška pri dohvatanju slogova iz baze - abs find: ${rows}`
+    );
+  }
+};
+
+const getCparV = async (objName, lang) => {
+  const sqlRecenica =
+    `select l.id, l.site, l.code, l.text, l.short, l.address, l.place, l.postcode, l.tel, l.activity,
+            l.pib, l.idnum, l.pdvnum, l.begda, l.endda,
+            l.docid, l.country, l.email, l.countryid, l.countryid, l.birthday,
+            l.lang, l.grammcase, l.text textx,
+            l.tp, getValueById(l.tp, 'cmn_cpartpx_v', 'code', '${lang || 'en'}') ctp, getValueById(l.tp, 'cmn_cpartpx_v', 'text', '${lang || 'en'}') ntp
+      from	cmn_cparx_v l
+      where l.lang = '${lang || 'en'}'`
+
+      // console.log(sqlRecenica, "*************sqlRecenica************")
   //const [rows] = await db.query(sqlRecenic);
   let result = await db.query(sqlRecenica);
   let rows = result.rows;
@@ -370,7 +393,7 @@ const getTerrtpV = async (objId, lang) => {
       join  cmn_terrtpx_v t on t.id = l.tp and t.code = '${objId}' and t.lang = '${lang || 'sr_cyr'}'
       where l.lang = '${lang || 'sr_cyr'}'`
   //const [rows] = await db.query(sqlRecenic);
-  console.log(sqlRecenica, "****************************/////////")
+  // console.log(sqlRecenica, "****************************/////////")
   let result = await db.query(sqlRecenica);
   let rows = result.rows;
   if (Array.isArray(rows)) {
@@ -390,7 +413,7 @@ const getTerrV = async (objName, lang) => {
       from	cmn_terrx_v l
       where l.lang = '${lang || 'en'}'`
   //const [rows] = await db.query(sqlRecenic);
-  console.log(sqlRecenica, "****************************/////////")
+  // console.log(sqlRecenica, "****************************/////////")
   let result = await db.query(sqlRecenica);
   let rows = result.rows;
   if (Array.isArray(rows)) {
@@ -409,7 +432,7 @@ const getParattsV = async (objName, objId, lang) => {
   from	cmn_paratts aa
   where aa.par = ${objId}`
   //const [rows] = await db.query(sqlRecenic);
-  console.log(sqlRecenica, "****************************/////////")
+  // console.log(sqlRecenica, "****************************/////////")
   let result = await db.query(sqlRecenica);
   let rows = result.rows;
   if (Array.isArray(rows)) {
@@ -428,7 +451,7 @@ const getTerrattsV = async (objName, objId, lang) => {
   from	cmn_terratts aa
   where aa.loc = ${objId}`
   //const [rows] = await db.query(sqlRecenic);
-  console.log(sqlRecenica, "****************************/////////****************")
+  // console.log(sqlRecenica, "****************************/////////****************")
   let result = await db.query(sqlRecenica);
   let rows = result.rows;
   if (Array.isArray(rows)) {
@@ -447,7 +470,7 @@ const getTerrlinkV = async (objName, objId, lang) => {
   from	cmn_terrlink aa
   where aa.terr2 = ${objId}`
   //const [rows] = await db.query(sqlRecenic);
-  console.log(sqlRecenica, "****************************/////////")
+  // console.log(sqlRecenica, "****************************/////////")
   let result = await db.query(sqlRecenica);
   let rows = result.rows;
   if (Array.isArray(rows)) {
@@ -466,7 +489,7 @@ const getLocterrV = async (objName, objId, lang) => {
   from	cmn_terrloc aa
   where aa.loc = ${objId}`
   //const [rows] = await db.query(sqlRecenic);
-  console.log(sqlRecenica, "***************getLocterrV*************/////////")
+  // console.log(sqlRecenica, "***************getLocterrV*************/////////")
   let result = await db.query(sqlRecenica);
   let rows = result.rows;
   if (Array.isArray(rows)) {
@@ -485,7 +508,7 @@ const getParlinkV = async (objName, objId, lang) => {
   from	cmn_parlink aa
   where aa.par2 = ${objId}`
   //const [rows] = await db.query(sqlRecenic);
-  console.log(sqlRecenica, "****************************/////////")
+  // console.log(sqlRecenica, "****************************/////////")
   let result = await db.query(sqlRecenica);
   let rows = result.rows;
   if (Array.isArray(rows)) {
@@ -525,7 +548,7 @@ const getCurrrateV = async (objName, objId, lang) => {
   where aa.curr2 = ${objId}
   `
   //const [rows] = await db.query(sqlRecenic);
-  console.log(sqlRecenica, "****************************/////////****************")
+  // console.log(sqlRecenica, "****************************/////////****************")
   let result = await db.query(sqlRecenica);
   let rows = result.rows;
   if (Array.isArray(rows)) {
@@ -563,7 +586,7 @@ const getTaxrateV = async (objName, objId, lang) => {
   from	cmn_taxrate aa
   where aa.tax = ${objId}`
   //const [rows] = await db.query(sqlRecenic);
-  console.log(sqlRecenica, "****************************/////////****************")
+  // console.log(sqlRecenica, "****************************/////////****************")
   let result = await db.query(sqlRecenica);
   let rows = result.rows;
   if (Array.isArray(rows)) {
@@ -602,7 +625,7 @@ const getTgptaxV = async (objName, objId, lang) => {
   from	cmn_tgptax aa
   where aa.tgp = ${objId}`
   //const [rows] = await db.query(sqlRecenic);
-  console.log(sqlRecenica, "****************************/////////****************")
+  // console.log(sqlRecenica, "****************************/////////****************")
   let result = await db.query(sqlRecenica);
   let rows = result.rows;
   if (Array.isArray(rows)) {
@@ -854,7 +877,7 @@ const getLocTree = async (objName, lang) => {
     WHERE d3.level = 0) x `;
 
   let result = await db.query(sqlRecenica);
-  console.log(result, "////////////////***sqlRecenica****/////////////////", sqlRecenica)
+  // console.log(result, "////////////////***sqlRecenica****/////////////////", sqlRecenica)
   let rows = result.rows;
 
   if (Array.isArray(rows) && rows.length > 0) {
@@ -1020,7 +1043,7 @@ const getLocTreeOld = async (objName, lang) => {
     ) x 
   `
   let result = await db.query(sqlRecenica);
-  console.log(result.rows, "//////////////////*************************///////////////////////////**************/////////////////")
+  // console.log(result.rows, "//////////////////*************************///////////////////////////**************/////////////////")
   let rows = result.rows;
 
   if (Array.isArray(rows) && rows.length > 0) {
@@ -1181,7 +1204,7 @@ const getLoclinkTree = async (objName, lang) => {
     WHERE d3.level = 0
   `;
   let result = await db.query(sqlRecenica);
-  console.log(result.rows, "/////////////////sqlRecenica////////////////", sqlRecenica)
+  // console.log(result.rows, "/////////////////sqlRecenica////////////////", sqlRecenica)
   let rows = result.rows;
 
   if (Array.isArray(rows) && rows.length > 0) {
@@ -1214,7 +1237,7 @@ const getCmnLocattsV = async (objName, objId, lang) => {
     where l.locatt  = ot1.id1
     and l.loc = ${objId}`
 
-    console.log(sqlRecenica, "#####################################")
+    // console.log(sqlRecenica, "#####################################")
   const result = await db.query(sqlRecenica);
   const rows = result.rows;
   if (Array.isArray(rows)) {
@@ -1236,7 +1259,7 @@ const getCmnLocvenueV = async (objName, objId, lang) => {
     and l.loc = ${objId}
     `
 
-    console.log(sqlRecenica, "#####################################")
+    // console.log(sqlRecenica, "#####################################")
   const result = await db.query(sqlRecenica);
   const rows = result.rows;
   if (Array.isArray(rows)) {
@@ -1286,7 +1309,7 @@ const getCmnObjparV = async (objName, objId, lang) => {
     where l.par  = p.id
     and l.obj = ${objId}
     `
-console.log(sqlRecenica, "###########################################getCmnObjparV#########################################")
+// console.log(sqlRecenica, "###########################################getCmnObjparV#########################################")
   const result = await db.query(sqlRecenica);
   const rows = result.rows;
   if (Array.isArray(rows)) {
@@ -1329,7 +1352,7 @@ const getCmnLoclinkV = async (objName, objId, lang) => {
             l.begda, l.endda, l.val, l.hijerarhija, l.onoff
     from    cmn_loclink l
     where 	l.loc2  = ${objId}`
-  console.log(sqlRecenica, "***********************getCmnLoclinkV***********************")
+  // console.log(sqlRecenica, "***********************getCmnLoclinkV***********************")
   const result = await db.query(sqlRecenica);
   const rows = result.rows;
   if (Array.isArray(rows)) {
@@ -1355,7 +1378,7 @@ const getCmnLoclinkLLV = async (objName, objId, item, lang) => {
     and lx.lang = '${lang || 'en'}'
     and l.loctp1 = t.id
     `
-  console.log(sqlRecenica, "***********************getCmnLoclinkLLV***********************")
+  // console.log(sqlRecenica, "***********************getCmnLoclinkLLV***********************")
   const result = await db.query(sqlRecenica);
   const rows = result.rows;
   if (Array.isArray(rows)) {
@@ -1378,7 +1401,7 @@ const getXscV = async (objName, lang) => {
       and d.code = t.code
       and t.id = l.tp
       `
-  console.log(sqlRecenica, "****************************/////////")
+  // console.log(sqlRecenica, "****************************/////////")
   //const [rows] = await db.query(sqlRecenic);
   let result = await db.query(sqlRecenica);
   let rows = result.rows;
@@ -1402,7 +1425,7 @@ const getLocXvV = async (objName, lang) => {
       and d.code = t.code
       and t.id = l.tp
       `
-  console.log(sqlRecenica, "****************************/////////")
+  // console.log(sqlRecenica, "****************************/////////")
   //const [rows] = await db.query(sqlRecenic);
   let result = await db.query(sqlRecenica);
   let rows = result.rows;
@@ -1427,7 +1450,7 @@ const getXscIdV = async (objId, lang) => {
       and 	t.code = 'XSC'
       and 	ll.loc2 = ${objId}
       `
-  console.log(sqlRecenica, "HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH")
+  // console.log(sqlRecenica, "HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH")
   //const [rows] = await db.query(sqlRecenic);
   let result = await db.query(sqlRecenica);
   let rows = result.rows;
@@ -1452,7 +1475,7 @@ const getXscDDV = async (objName, objId, id, lang) => {
       and l.lang = '${lang || 'en'}'
       and e.id = ${objId}
       `
-  console.log(sqlRecenica, "****************************/////////")
+  // console.log(sqlRecenica, "****************************/////////")
   //const [rows] = await db.query(sqlRecenic);
   let result = await db.query(sqlRecenica);
   let rows = result.rows;
@@ -1507,4 +1530,5 @@ export default {
   getCmnLocvenueV,
   getXscIdV,
   getLocXvV,
+  getCparV
 };
