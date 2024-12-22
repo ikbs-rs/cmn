@@ -258,7 +258,7 @@ const getObjLLV = async (objName, objId, lang) => {
       and t.code = (CASE WHEN '${objId}' = '-1' then t.code else '${objId}' end)
       and l.tp = t.id 
       `
-  //const [rows] = await db.query(sqlRecenic);
+  // console.log(sqlRecenica, "*************sqlRecenica***********************************************************************")
   let result = await db.query(sqlRecenica);
   let rows = result.rows;
   if (Array.isArray(rows)) {

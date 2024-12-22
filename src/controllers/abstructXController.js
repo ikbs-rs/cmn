@@ -77,7 +77,7 @@ const getItem = async (req, res) => {
 
 const getIdByItem = async (req, res) => {
   try {
-    console.log("DDDDDDDDDDDDDDDDD", new Date().toLocaleTimeString('sr-RS', { hour12: false, timeZone: 'UTC' }) + `:${new Date().getMilliseconds()} milisekunde`);
+    // console.log("DDDDDDDDDDDDDDDDD", new Date().toLocaleTimeString('sr-RS', { hour12: false, timeZone: 'UTC' }) + `:${new Date().getMilliseconds()} milisekunde`);
     const item = await abstructHelper.getIdByItem(req.objName, req.query.sl||'en', req.objItem, req.params.value);
     res.status(200).json({item});
   } catch (err) {
