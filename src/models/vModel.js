@@ -427,8 +427,8 @@ const getTerrV = async (objName, lang) => {
 
 const getParattsV = async (objName, objId, lang) => {
   const sqlRecenica =
-    `select aa.id , aa.site , aa.par , aa.text, aa.begda, aa.endda, 
-        aa.att, getValueById(aa.att, 'cmn_parattx_v', 'code', '${lang || 'en'}') ctp, getValueById(aa.att, 'cmn_parattx_v', 'text', '${lang || 'en'}') ntp
+    `select aa.*, 
+        getValueById(aa.att, 'cmn_parattx_v', 'code', '${lang || 'en'}') ctp, getValueById(aa.att, 'cmn_parattx_v', 'text', '${lang || 'en'}') ntp
   from	cmn_paratts aa
   where aa.par = ${objId}`
   //const [rows] = await db.query(sqlRecenic);

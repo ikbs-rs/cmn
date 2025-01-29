@@ -495,7 +495,13 @@ const entitiesInfo =
 			"text": "string",
 			"begda": "string",
 			"endda": "string",
-			"zzcode": "string"
+			"zzcode": "string",
+			"opis1": "string",
+			"vrednost1": "string",
+			"opis2": "string",
+			"vrednost2": "string",
+			"opis3": "string",
+			"vrednost3": "string"
 		}
 	},
 	"cmn_parattx": {
