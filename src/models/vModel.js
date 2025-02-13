@@ -61,13 +61,13 @@ const getLocLLV = async (objName, objId, lang) => {
     `
     select l.id, l.site, l.code, l.text , l.valid, l.longtext, l.lang, l.grammcase, l.text textx, l.color, l.icon, 
             l.tp, t.code ctp, t.text ntp,
-            l.grp, l1.code cgrp, l1.text ngrp
+            l.grp, l1.code cgrp, l1.text ngrp, l.kapacitet
       from	cmn_locx_v l
       join  cmn_loctpx_v t on l.tp = t.id and t.lang = '${lang || 'en'}' and t.code = (CASE WHEN '${objId}' = '-1' then t.code else '${objId}' end)
       left join cmn_locx_v l1 on l1.id = l.grp and l1.lang = '${lang || 'en'}'
       where l.lang = '${lang || 'en'}'
       `
-  // console.log(sqlRecenica, "*****************getLocLLV***********/////////")
+  console.log(sqlRecenica, "*****************getLocLLV***********/////////")
   //const [rows] = await db.query(sqlRecenic);
   let result = await db.query(sqlRecenica);
   let rows = result.rows;

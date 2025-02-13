@@ -125,7 +125,8 @@ const entitiesInfo =
 			"valid": "number",
 			"color": "string",
 			"icon": "string",
-			"grp": "number"
+			"grp": "number",
+			"kapacitet": "number"
 		}
 	},
 	"cmn_locatt": {
